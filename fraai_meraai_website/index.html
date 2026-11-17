@@ -274,8 +274,7 @@
     */
     const BUSINESS = {
       website: "https://www.fraaimeraai.co.za",
-      whatsapp: "27646876991", // VERVANG MET JOU WHATSAPP-NOMMER
-      whatsapp: "27722074083",
+      whatsapp: ["27722074083", "27646876991"],
       email: "vanniekerklesmari08@gmail.com", // VERVANG MET JOU E-POS
       area: "Virginia, Vrystaat" // VERVANG MET JOU AREA
     };
@@ -286,8 +285,8 @@
       { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", emoji: "💝" }
     ];
 
-    function whatsappLink(message) {
-      return `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(message)}`;
+    function whatsappLink(message, phone = BUSINESS.whatsapp[0]) {
+      return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     }
     function orderProduct(name) {
       window.open(whatsappLink(`Hallo Fraai Meraai! Ek stel belang in die ${name}. Kan julle asseblief meer inligting gee?`), "_blank");
@@ -309,7 +308,10 @@
         </div>
       </article>`).join("");
 
-    document.getElementById("contact-phone").textContent = "WhatsApp: " + BUSINESS.whatsapp;
+    document.getElementById("contact-phone").innerHTML = "WhatsApp: " + BUSINESS.whatsapp.map((phone) => {
+      const displayPhone = "0" + phone.slice(2).replace(/(\d{2})(\d{3})(\d{4})/, "$1 $2 $3");
+      return `<a href="${whatsappLink("Hallo Fraai Meraai! Ek wil graag meer uitvind oor julle geskenkbokse.", phone)}" target="_blank" rel="noreferrer">${displayPhone}</a>`;
+    }).join(" / ");
     document.getElementById("contact-email").textContent = "E-pos: " + BUSINESS.email;
     document.getElementById("contact-area").textContent = "Afleweringsgebied: " + BUSINESS.area;
     document.getElementById("year").textContent = new Date().getFullYear();
