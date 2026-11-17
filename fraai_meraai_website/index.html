@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="af">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f8eee9">
+  <title>Fraai Meraai Geskenk Boks | Klein bederfies, groot glimlagte</title>
+  <meta name="description" content="Pragtige, deurdagte geskenkbokse vir elke vrou en elke spesiale oomblik.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #fffaf6;
+      --blush: #f3dfdc;
+      --pink: #d99d9b;
+      --rose: #a95f67;
+      --wine: #633b45;
+      --sage: #89947d;
+      --ink: #49383a;
+      --muted: #806f70;
+      --white: #fff;
+      --shadow: 0 18px 50px rgba(99, 59, 69, .10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: "DM Sans", sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    .announcement { background: var(--wine); color: #fff8f4; text-align: center; padding: 10px 16px; font-size: .78rem; letter-spacing: .09em; }
+    header { position: sticky; top: 0; z-index: 10; background: rgba(255,250,246,.94); backdrop-filter: blur(14px); border-bottom: 1px solid #f0e4df; }
+    .nav { max-width: 1160px; margin: auto; padding: 17px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; flex-direction: column; line-height: 1.1; }
+    .brand strong { font: 600 1.35rem "Playfair Display", serif; color: var(--wine); }
+    .brand span { margin-top: 5px; font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
+    nav { display: flex; align-items: center; gap: 28px; font-size: .88rem; color: var(--wine); }
+    nav a:hover { color: var(--rose); }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 13px 22px; background: var(--wine); color: white; font: 600 .88rem "DM Sans", sans-serif; transition: .2s; cursor: pointer; }
+    .nav-cta:hover, .button:hover { background: var(--rose); transform: translateY(-2px); }
+    .menu-toggle { display: none; background: none; border: 0; font-size: 1.5rem; color: var(--wine); }
+    .hero { max-width: 1160px; margin: auto; padding: 76px 24px 84px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 56px; }
+    .eyebrow { color: var(--rose); font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: "Playfair Display", serif; font-weight: 600; }
+    h1 { color: var(--wine); font-size: clamp(3rem, 6vw, 5.2rem); line-height: 1.04; margin: 18px 0; letter-spacing: -.035em; }
+    h1 em { color: var(--rose); font-weight: 500; }
+    .hero-copy { max-width: 510px; color: var(--muted); line-height: 1.8; font-size: 1.02rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 28px; }
+    .button.secondary { background: transparent; color: var(--wine); border: 1px solid #d9b9b6; }
+    .button.secondary:hover { background: var(--blush); }
+    .hero-note { margin-top: 25px; color: var(--muted); font-size: .8rem; }
+    .hero-art { min-height: 470px; position: relative; display: grid; place-items: center; }
+    .hero-blob { position: absolute; width: min(100%, 460px); aspect-ratio: 1; border-radius: 48% 52% 44% 56% / 52% 43% 57% 48%; background: var(--blush); transform: rotate(-8deg); }
+    .gift-card { position: relative; width: min(78%, 340px); padding: 28px; background: #fff; border-radius: 8px; box-shadow: var(--shadow); transform: rotate(4deg); text-align: center; }
+    .gift-card:before { content: ""; position: absolute; left: 50%; top: 0; height: 100%; width: 30px; transform: translateX(-50%); background: rgba(217,157,155,.35); }
+    .gift-card:after { content: "✿"; position: absolute; top: -26px; left: 50%; transform: translateX(-50%); color: var(--rose); font-size: 3rem; }
+    .gift-inner { position: relative; border: 1px solid #ead4d0; padding: 45px 18px; }
+    .gift-inner small { letter-spacing: .2em; color: var(--rose); text-transform: uppercase; }
+    .gift-inner h2 { font-size: 2.3rem; color: var(--wine); margin: 13px 0; }
+    .gift-inner p { font: italic 1rem "Playfair Display", serif; color: var(--muted); }
+    .floating { position: absolute; background: white; color: var(--wine); box-shadow: var(--shadow); border-radius: 50px; padding: 13px 18px; font: italic 1rem "Playfair Display", serif; }
+    .float-one { top: 13%; right: 0; transform: rotate(7deg); }
+    .float-two { bottom: 12%; left: 0; transform: rotate(-7deg); }
+    .ticker { background: var(--blush); color: var(--wine); text-align: center; padding: 18px 12px; font: italic 1.2rem "Playfair Display", serif; }
+    section { scroll-margin-top: 90px; }
+    .section { max-width: 1160px; margin: auto; padding: 82px 24px; }
+    .section-heading { text-align: center; max-width: 620px; margin: 0 auto 42px; }
+    .section-heading h2 { color: var(--wine); font-size: clamp(2.2rem, 4vw, 3.25rem); margin: 12px 0; }
+    .section-heading p { color: var(--muted); line-height: 1.7; }
+    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .product { background: white; border: 1px solid #f0e5e0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(99,59,69,.05); transition: .25s; }
+    .product:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .product-art { min-height: 220px; display: grid; place-items: center; background: linear-gradient(145deg, #f5e4df, #f8eee7); font-size: 5rem; }
+    .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
+    .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
+    .product-info { padding: 23px; }
+    .product-info h3 { font-size: 1.45rem; color: var(--wine); margin: 0 0 9px; }
+    .product-info p { min-height: 48px; color: var(--muted); line-height: 1.6; font-size: .88rem; margin: 0 0 18px; }
+    .price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .price { font-weight: 700; color: var(--rose); font-size: 1.15rem; }
+    .small-order { border: 1px solid #d9b9b6; border-radius: 99px; color: var(--wine); padding: 9px 14px; font-size: .78rem; font-weight: 700; }
+    .small-order:hover { background: var(--blush); }
+    .custom { background: #f5e9e4; }
+    .custom-wrap { max-width: 950px; margin: auto; display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
+    .custom h2 { color: var(--wine); font-size: 2.8rem; line-height: 1.12; margin: 14px 0; }
+    .custom p { color: var(--muted); line-height: 1.8; }
+    .steps { display: grid; gap: 16px; }
+    .step { display: flex; gap: 16px; align-items: flex-start; background: rgba(255,255,255,.72); border-radius: 13px; padding: 17px; }
+    .step b { flex: 0 0 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--blush); color: var(--wine); }
+    .step strong { display: block; color: var(--wine); margin-bottom: 4px; }
+    .step span { color: var(--muted); font-size: .86rem; line-height: 1.5; }
+    .love { text-align: center; background: var(--wine); color: #fff8f4; padding: 70px 24px; }
+    .love h2 { font-size: clamp(2.2rem, 4vw, 3.2rem); margin: 10px 0 14px; }
+    .love p { max-width: 630px; margin: auto; line-height: 1.8; color: #ead8d5; }
+    .love .button { margin-top: 25px; background: #f4deda; color: var(--wine); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; align-items: start; }
+    .contact-card { background: white; border: 1px solid #f0e5e0; border-radius: 16px; padding: 30px; }
+    .contact-card h3 { color: var(--wine); font-size: 1.7rem; margin: 0 0 15px; }
+    .contact-card p { color: var(--muted); line-height: 1.7; }
+    .contact-line { display: flex; gap: 12px; margin: 17px 0; color: var(--wine); align-items: center; }
+    .contact-line span:first-child { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--blush); }
+    footer { background: #f3e7e2; text-align: center; color: var(--muted); padding: 25px 15px; font-size: .78rem; }
+    footer strong { color: var(--wine); font-family: "Playfair Display", serif; font-size: 1.05rem; }
+
+    /* Welkom-intro */
+    body.intro-active { overflow: hidden; }
+    .welcome-screen { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 30px 20px; text-align: center; background: radial-gradient(circle at 50% 35%, #fff 0, #fffaf6 48%, #f2dfdc 100%); transition: opacity .9s ease, visibility .9s ease; }
+    .welcome-screen.leaving { opacity: 0; visibility: hidden; pointer-events: none; }
+    .intro-scene { width: min(330px, 78vw); height: 230px; position: relative; display: grid; place-items: end center; margin-bottom: 12px; }
+    .intro-butterfly { position: absolute; z-index: 3; top: -15px; left: 5%; font-size: 3.1rem; filter: drop-shadow(0 7px 8px rgba(99,59,69,.13)); animation: butterflyJourney 3.8s cubic-bezier(.42,0,.25,1) forwards; }
+    .intro-gift { width: 190px; height: 145px; position: relative; margin-bottom: 12px; animation: giftAppear .8s ease both; }
+    .gift-box { position: absolute; bottom: 0; left: 10px; width: 170px; height: 105px; border-radius: 5px 5px 12px 12px; background: linear-gradient(100deg,#d99d9b,#edc2bb 48%,#d28e91); box-shadow: 0 17px 25px rgba(99,59,69,.17); overflow: hidden; }
+    .gift-box:before { content:""; position:absolute; left:72px; top:0; width:27px; height:100%; background:#fff0e9; opacity:.9; }
+    .gift-box i { position:absolute; left:0; right:0; top:0; height:15px; background:rgba(255,255,255,.25); }
+    .gift-lid { position:absolute; z-index:2; top:27px; left:0; width:190px; height:30px; border-radius:5px; background:linear-gradient(100deg,#c98289,#e7b1ae 55%,#c98289); box-shadow:0 5px 8px rgba(99,59,69,.12); transform-origin: 12% 90%; animation: lidOpen .85s 4.15s ease forwards; }
+    .gift-lid span { position:absolute; left:81px; top:0; width:27px; height:100%; background:#fff0e9; }
+    .gift-bow { position:absolute; z-index:4; top:0; left:73px; font-size:2.5rem; animation: bowLift .8s 4.15s ease forwards; }
+    .welcome-message { max-width: 590px; opacity:0; transform:translateY(15px); animation: messageIn 1s 4.45s ease forwards; }
+    .welcome-message h1 { font-size:clamp(2.5rem,7vw,4.4rem); margin:12px 0; }
+    .welcome-message p { color:var(--muted); line-height:1.7; max-width:440px; margin:0 auto; }
+    .continue-button { margin-top:25px; min-width:165px; box-shadow:0 9px 22px rgba(99,59,69,.17); }
+    .continue-button span { margin-left:10px; font-size:1.1rem; }
+    .welcome-signoff { margin-top:17px; color:var(--rose); font:italic .95rem "Playfair Display",serif; }
+    .welcome-sparkle { position:absolute; color:#c58b8d; font-size:2rem; animation: twinkle 2.3s ease-in-out infinite; }
+    .sparkle-a { top:18%; left:17%; } .sparkle-b { right:16%; bottom:19%; animation-delay:1s; }
+    @keyframes butterflyJourney { 0% { transform:translate(0,0) rotate(-12deg); } 28% { transform:translate(90px,35px) rotate(15deg); } 58% { transform:translate(205px,85px) rotate(-8deg); } 78% { transform:translate(165px,125px) rotate(8deg) scale(.9); } 100% { transform:translate(145px,126px) rotate(0) scale(.82); } }
+    @keyframes giftAppear { from { opacity:0; transform:translateY(25px) scale(.9); } to { opacity:1; transform:translateY(0) scale(1); } }
+    @keyframes lidOpen { to { transform:translate(-18px,-38px) rotate(-24deg); } }
+    @keyframes bowLift { to { transform:translate(-28px,-42px) rotate(-18deg); opacity:.2; } }
+    @keyframes messageIn { to { opacity:1; transform:translateY(0); } }
+    @keyframes twinkle { 0%,100% { opacity:.35; transform:scale(.8) rotate(0); } 50% { opacity:1; transform:scale(1.2) rotate(18deg); } }
+    @media (max-width:480px) { .intro-scene { transform:scale(.88); margin-bottom:0; } .welcome-message p { font-size:.92rem; } .sparkle-a { left:7%; } .sparkle-b { right:7%; } }
+    @media (prefers-reduced-motion: reduce) { .intro-butterfly,.gift-lid,.gift-bow,.welcome-message,.welcome-sparkle { animation-duration:.01ms !important; animation-delay:0s !important; } }
+
+    @media (max-width: 780px) {
+      .nav { padding: 14px 18px; } .menu-toggle { display: block; }
+      nav { display: none; position: absolute; left: 0; right: 0; top: 100%; padding: 20px; background: var(--cream); flex-direction: column; gap: 20px; border-bottom: 1px solid #f0e4df; }
+      nav.open { display: flex; } .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 20px; }
+      .hero-art { min-height: 390px; } .products { grid-template-columns: 1fr; max-width: 470px; margin: auto; }
+      .custom-wrap, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
+      .section { padding: 65px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-screen" id="welcomeScreen" aria-label="Welkom by Fraai Meraai">
+    <div class="welcome-sparkle sparkle-a">✧</div><div class="welcome-sparkle sparkle-b">♡</div>
+    <div class="intro-scene">
+      <div class="intro-butterfly" aria-hidden="true">🦋</div>
+      <div class="intro-gift" aria-hidden="true">
+        <div class="gift-lid"><span></span></div>
+        <div class="gift-box"><i></i></div>
+        <div class="gift-bow">🎀</div>
+      </div>
+    </div>
+    <div class="welcome-message">
+      <div class="eyebrow">'n Wêreldjie vol mooi dinge</div>
+      <h1>Welkom by <em>Fraai Meraai</em></h1>
+      <p>Waar elke geskenk met liefde gekies en elke vrou raakgesien word.</p>
+      <button class="button continue-button" id="continueButton" type="button">Continue <span aria-hidden="true">♡</span></button>
+      <div class="welcome-signoff">Met liefde, net vir jou</div>
+    </div>
+  </div>
+  <div class="announcement">KLEIN Bederfies. GROOT GLIMLAGTE. ♡</div>
+  <header>
+    <div class="nav">
+      <a class="brand" href="#tuis"><strong>Fraai Meraai</strong><span>Geskenk Boks</span></a>
+      <button class="menu-toggle" aria-label="Maak kieslys oop" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
+      <nav>
+        <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
+      </nav>
+      <a class="nav-cta" href="#katalogus">Vind jou bederfie</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="tuis">
+      <div>
+        <div class="eyebrow">Met liefde gekies. Met sorg verpak.</div>
+        <h1>Omdat sy ook verdien om <em>bederf</em>    te word.</h1>
+        <p class="hero-copy">Vir die vrou wat altyd aan almal dink. Vir jou beste vriendin, jou ma, jou suster — of sommer net vir jouself. Ons maak geskenkbokse wat sê: “Ek sien jou. Jy is spesiaal.”</p>
+        <div class="hero-actions">
+          <a class="button" href="#katalogus">Ontdek die katalogus</a>
+          <a class="button secondary" href="#pasgemaak">Skep iets uniek</a>
+        </div>
+        <div class="hero-note">♡ Persoonlik • Pragtig • Met liefde saamgestel</div>
+      </div>
+      <div class="hero-art" aria-label="Illustrasie van 'n elegante geskenkboks">
+        <div class="hero-blob"></div>
+        <div class="gift-card"><div class="gift-inner"><small>'n Bietjie liefde</small><h2>Net vir jou</h2><p>Jy verdien mooi dinge.</p><div style="font-size:2rem;color:#a95f67">♡</div></div></div>
+        <div class="floating float-one">Jy is genoeg ✿</div><div class="floating float-two">Net omdat ♡</div>
+      </div>
+    </section>
+
+    <div class="ticker">“'n Geskenk is mooi — maar die gevoel daaragter is alles.”</div>
+
+    <section class="section" id="katalogus">
+      <div class="section-heading">
+        <div class="eyebrow">Die katalogus</div>
+        <h2>Vind die boks wat by haar pas</h2>
+        <p>Elke boks is 'n klein oomblik van vreugde. Kies jou gunsteling, of kontak ons om iets persoonliks saam te stel.</p>
+      </div>
+      <div class="products" id="product-list"></div>
+    </section>
+
+    <section class="custom" id="pasgemaak">
+      <div class="section section-inner">
+        <div class="custom-wrap">
+          <div>
+            <div class="eyebrow">Jou idee. Ons liefdevolle hande.</div>
+            <h2>Maak dit persoonlik.</h2>
+            <p>Het jy 'n spesifieke kleur, tema, begroting of geleentheid in gedagte? Ons help jou om 'n geskenkboks te skep wat regtig iets beteken.</p>
+            <a class="button" href="#" onclick="orderCustom();return false;">Kom ons beplan dit</a>
+          </div>
+          <div class="steps">
+            <div class="step"><b>01</b><div><strong>Vertel ons van haar</strong><span>Wie is die spesiale vrou en wat maak haar uniek?</span></div></div>
+            <div class="step"><b>02</b><div><strong>Kies jou styl en begroting</strong><span>Ons werk saam met jou kleure, tema en prysklas.</span></div></div>
+            <div class="step"><b>03</b><div><strong>Ons maak iets besonders</strong><span>'n Pragtige boks, met aandag aan elke klein detail.</span></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="love">
+      <div class="eyebrow" style="color:#e9bdb8">Net 'n herinnering</div>
+      <h2>Jy hoef nie 'n rede te hê om haar te laat glimlag nie.</h2>
+      <p>Verjaarsdag, dankie-sê, nuwe begin, moeilike dag of sommer net omdat sy dit verdien — daar is altyd plek vir 'n bietjie ekstra liefde.</p>
+      <a class="button" href="#kontak">Kom ons verras iemand ♡</a>
+    </section>
+
+    <section class="section" id="kontak">
+      <div class="section-heading">
+        <div class="eyebrow">Kom sê hallo</div>
+        <h2>Ons help jou graag kies</h2>
+        <p>Vrae oor 'n bestelling, aflewering of 'n pasgemaakte boks? Stuur gerus vir ons 'n boodskap.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Kontak Fraai Meraai</h3>
+          <p>Ons sien uit daarna om saam met jou iets besonders te skep.</p>
+          <div class="contact-line"><span>♡</span><span id="contact-phone">WhatsApp: Voeg jou nommer by</span></div>
+          <div class="contact-line"><span>✉</span><span id="contact-email">E-pos: Voeg jou e-pos by</span></div>
+          <div class="contact-line"><span>⌖</span><span id="contact-area">Afleweringsgebied: Voeg jou area by</span></div>
+        </div>
+        <div class="contact-card">
+          <h3>Gereed om iemand se dag te maak?</h3>
+          <p>Klik hieronder en vertel ons waarna jy op soek is. Ons antwoord so gou moontlik.</p>
+          <a class="button" href="#" onclick="contactUs();return false;">Stuur vir ons 'n WhatsApp</a>
+          <p style="font-size:.76rem;margin-top:18px">Bestellings en beskikbaarheid word direk bevestig.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><strong>Fraai Meraai Geskenk Boks</strong><br><span>Met liefde verpak, spesiaal vir haar. ♡</span><br><br>© <span id="year"></span> Fraai Meraai. Alle regte voorbehou.</footer>
+
+  <script>
+
+    // Die intro verdwyn wanneer die besoeker Continue kies.
+    document.body.classList.add("intro-active");
+    document.getElementById("continueButton").addEventListener("click", () => {
+      const welcome = document.getElementById("welcomeScreen");
+      welcome.classList.add("leaving");
+      document.body.classList.remove("intro-active");
+      window.setTimeout(() => welcome.remove(), 950);
+    });
+
+    /*
+      VINNIGE AANPASSINGS:
+      1. Verander die WhatsApp-nommer hieronder na jou nommer.
+         Gebruik internasionale formaat sonder +, spasies of koppeltekens.
+         Voorbeeld: 27821234567
+      2. Vul jou e-pos en afleweringsgebied in.
+      3. Verander die produkte, beskrywings en pryse in die products-lys.
+    */
+    const BUSINESS = {
+      website: "https://www.fraaimeraai.co.za",
+      whatsapp: "0722074083 of 0646876991", // VERVANG MET JOU WHATSAPP-NOMMER
+      email: "vanniekerklesmari08@gmail.com", // VERVANG MET JOU E-POS
+      area: "Virginia, Vrystaat" // VERVANG MET JOU AREA
+    };
+
+    const products = [
+      { name: "Glow Up", price: "R200", description: "'n Lieflike bederfie vir iemand wat 'n ekstra bietjie liefde verdien.", emoji: "🎀" },
+      { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", emoji: "🌷" },
+      { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", emoji: "💝" }
+    ];
+
+    function whatsappLink(message) {
+      return `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(message)}`;
+    }
+    function orderProduct(name) {
+      window.open(whatsappLink(`Hallo Fraai Meraai! Ek stel belang in die ${name}. Kan julle asseblief meer inligting gee?`), "_blank");
+    }
+    function orderCustom() {
+      window.open(whatsappLink("Hallo Fraai Meraai! Ek wil graag 'n pasgemaakte geskenkboks bespreek. Kan julle my help?"), "_blank");
+    }
+    function contactUs() {
+      window.open(whatsappLink("Hallo Fraai Meraai! Ek wil graag meer uitvind oor julle geskenkbokse."), "_blank");
+    }
+
+    document.getElementById("product-list").innerHTML = products.map((p, i) => `
+      <article class="product">
+        <div class="product-art" aria-hidden="true">${p.emoji}</div>
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <p>${p.description}</p>
+          <div class="price-row"><span class="price">${p.price}</span><a class="small-order" href="#" onclick="orderProduct('${p.name.replace(/'/g, "\\'")}');return false;">Bestel nou ↗</a></div>
+        </div>
+      </article>`).join("");
+
+    document.getElementById("contact-phone").textContent = "WhatsApp: " + BUSINESS.whatsapp;
+    document.getElementById("contact-email").textContent = "E-pos: " + BUSINESS.email;
+    document.getElementById("contact-area").textContent = "Afleweringsgebied: " + BUSINESS.area;
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
