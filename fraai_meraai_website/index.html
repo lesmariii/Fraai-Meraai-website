@@ -34,8 +34,8 @@
     .brand span { margin-top: 5px; font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); }
     nav { display: flex; align-items: center; gap: 28px; font-size: .88rem; color: var(--wine); }
     nav a:hover { color: var(--rose); }
-    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 13px 22px; background: var(--wine); color: white; font: 600 .88rem "DM Sans", sans-serif; transition: .2s; cursor: pointer; }
-    .nav-cta:hover, .button:hover { background: var(--rose); transform: translateY(-2px); }
+    .button { display: inline-flex; align-items: center; justify-content: center; border: 0; border-radius: 999px; padding: 13px 22px; background: var(--wine); color: white; font: 600 .88rem "DM Sans", sans-serif; transition: .2s; cursor: pointer; }
+    .button:hover { background: var(--rose); transform: translateY(-2px); }
     .menu-toggle { display: none; background: none; border: 0; font-size: 1.5rem; color: var(--wine); }
     .hero { max-width: 1160px; margin: auto; padding: 76px 24px 84px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 56px; }
     .eyebrow { color: var(--rose); font-size: .72rem; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
@@ -219,7 +219,7 @@
     @media (max-width: 780px) {
       .nav { padding: 14px 18px; } .menu-toggle { display: block; }
       nav { display: none; position: absolute; left: 0; right: 0; top: 100%; padding: 20px; background: var(--cream); flex-direction: column; gap: 20px; border-bottom: 1px solid #f0e4df; }
-      nav.open { display: flex; } .nav-cta { display: none; }
+      nav.open { display: flex; }
       .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 20px; }
       .hero-art { min-height: 390px; }
       .products { max-width: none; margin: 0; }
@@ -268,7 +268,6 @@
       <nav>
         <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#fraai-juwele">Fraai Juwele</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
       </nav>
-      <a class="nav-cta" href="#katalogus">Vind jou bederfie</a>
     </div>
   </header>
 
@@ -491,6 +490,7 @@
       return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
     }
 
+    // Verander elke produk se naam, prys, beskrywing en image in die toepaslike lys.
     const products = [
       {
         name: "Luukse Fraai Meraai Geskenkboks",
@@ -504,47 +504,104 @@
           "8-stuk iBeauty grimeringkwassie-stel",
           "Sagte strikkie-haarband",
           "Super-sagte gesigwaslappie",
-          "Bella de Charm handeroom"
+          "Bella de Charm handeroom",
         ],
         image: "images/luukse-fraai-meraai.webp"
       },
-      { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", details: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies. 'n Bedagsame geskenk om haar aan te moedig om tyd vir haarself te maak.", emoji: "🌷" },
-      { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", details: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak. 'n Deurdagte gebaar om jou waardering op 'n persoonlike manier te wys.", emoji: "💝" }
+      { name: "Die Selfliefde Boks",
+       price: "R220",
+      description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.",
+      contents: [
+        "Yum Yum Parfuum + Handeroom",
+        "Sagte gesigswas-polsbandjies (stel)",
+        "Lip gloss met strikkie-sleutelhouer",
+        "Coconut Lipice",
+        "Boksie seepvlokkies",
+        "Make-up blender sponsie",
+        "2 Haarrekkies",
+      ],
+      image: "images/bedef-fraai-meraai.webp"
+      },
+      { name: "Mooi in Pienk", 
+      price: "R275", 
+      description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.",
+      contents: [
+        "8-stuk iBeauty grimeringkwassie-stel",
+        "Stylevolle blom-haarknip (claw clip)",
+        "Hartjie-sleutelhanger met 3 beauty blenders",
+        "Oulike strikkie-sakspieeltjie sleutelhanger",
+        "La Bomba parfuum + handeroom-stel",
+        "Sakpas aarbei-handseepflokkies",
+        "Super-sagte gesigwaslappie",
+    ],
+      image: "prettyinpink-fraai-meraai.webp"
+      },
+      { name: "Sweet Cherry Bederfie", 
+      price: "R220", 
+      description: "Vervang met jou geskenkboks se beskrywing.", 
+      contents: [
+        "30ml Parfuum",
+        "Strikkie-kaartbeursie",
+        "Handeroom",
+        "Cherry lipmasker",
+        "Sakpas mint_handseepflokkies",
+        "Satyn scrunchie",
+        "Beauty blender",
+      ],
+      image: "sweet-cherry-fraai-meraai.webp"
+     },
+      { name: "Voorbeeld Geskenkboks 02", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 2) },
+      { name: "Voorbeeld Geskenkboks 03", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 3) },
+      { name: "Voorbeeld Geskenkboks 04", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 4) },
+      { name: "Voorbeeld Geskenkboks 05", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 5) },
+      { name: "Voorbeeld Geskenkboks 06", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 6) },
+      { name: "Voorbeeld Geskenkboks 07", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 7) },
+      { name: "Voorbeeld Geskenkboks 08", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 8) },
+      { name: "Voorbeeld Geskenkboks 09", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 9) },
+      { name: "Voorbeeld Geskenkboks 10", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 10) },
+      { name: "Voorbeeld Geskenkboks 11", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 11) },
+      { name: "Voorbeeld Geskenkboks 12", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 12) },
+      { name: "Voorbeeld Geskenkboks 13", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 13) },
+      { name: "Voorbeeld Geskenkboks 14", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 14) },
+      { name: "Voorbeeld Geskenkboks 15", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 15) },
+      { name: "Voorbeeld Geskenkboks 16", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 16) },
+      { name: "Voorbeeld Geskenkboks 17", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 17) },
+      { name: "Voorbeeld Geskenkboks 18", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 18) },
+      { name: "Voorbeeld Geskenkboks 19", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 19) },
+      { name: "Voorbeeld Geskenkboks 20", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 20) }
     ];
-    for (let index = 1; index <= 20; index += 1) {
-      products.push({
-        name: `Voorbeeld Geskenkboks ${String(index).padStart(2, "0")}`,
-        price: "Voeg prys by",
-        description: "Vervang met jou geskenkboks se beskrywing.",
-        image: sampleCatalogImage("gift", index)
-      });
-    }
 
     // Vervang die voorbeeldname, pryse, beskrywings en leë beeldpaaie met jou juwele.
     const goldJewelryProducts = [
       { name: "Goudhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
       { name: "Goudarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
-      { name: "Goudbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" }
+      { name: "Goudbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" },
+      { name: "Goudjuweel-voorbeeld 01", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "gold") },
+      { name: "Goudjuweel-voorbeeld 02", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "gold") },
+      { name: "Goudjuweel-voorbeeld 03", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "gold") },
+      { name: "Goudjuweel-voorbeeld 04", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "gold") },
+      { name: "Goudjuweel-voorbeeld 05", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "gold") },
+      { name: "Goudjuweel-voorbeeld 06", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "gold") },
+      { name: "Goudjuweel-voorbeeld 07", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "gold") },
+      { name: "Goudjuweel-voorbeeld 08", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "gold") },
+      { name: "Goudjuweel-voorbeeld 09", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "gold") },
+      { name: "Goudjuweel-voorbeeld 10", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "gold") }
     ];
     const silverJewelryProducts = [
       { name: "Silwerhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
       { name: "Silwerarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
-      { name: "Silwerbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" }
+      { name: "Silwerbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" },
+      { name: "Silwerjuweel-voorbeeld 01", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "silver") },
+      { name: "Silwerjuweel-voorbeeld 02", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "silver") },
+      { name: "Silwerjuweel-voorbeeld 03", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "silver") },
+      { name: "Silwerjuweel-voorbeeld 04", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "silver") },
+      { name: "Silwerjuweel-voorbeeld 05", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "silver") },
+      { name: "Silwerjuweel-voorbeeld 06", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "silver") },
+      { name: "Silwerjuweel-voorbeeld 07", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "silver") },
+      { name: "Silwerjuweel-voorbeeld 08", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "silver") },
+      { name: "Silwerjuweel-voorbeeld 09", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "silver") },
+      { name: "Silwerjuweel-voorbeeld 10", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "silver") }
     ];
-    for (let index = 1; index <= 10; index += 1) {
-      goldJewelryProducts.push({
-        name: `Goudjuweel-voorbeeld ${String(index).padStart(2, "0")}`,
-        price: "Voeg prys by",
-        description: "Vervang met jou juweel se beskrywing.",
-        image: sampleCatalogImage("jewelry", index, "gold")
-      });
-      silverJewelryProducts.push({
-        name: `Silwerjuweel-voorbeeld ${String(index).padStart(2, "0")}`,
-        price: "Voeg prys by",
-        description: "Vervang met jou juweel se beskrywing.",
-        image: sampleCatalogImage("jewelry", index, "silver")
-      });
-    }
 
     // Vervang later die voorbeeld-emoji's met jou eie bedelname en beeldpaaie.
     const availableCharms = [
