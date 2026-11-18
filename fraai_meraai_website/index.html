@@ -95,7 +95,7 @@
 }
     .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
-    .product-preview { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+    .product-preview { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: rgba(169,95,103,.18); }
     .product-preview:focus-visible, .product-dialog button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
     .product-info { padding: 23px; }
     .product-info h3 { font-size: 1.45rem; color: var(--wine); margin: 0 0 9px; }
@@ -225,7 +225,15 @@
       .products { max-width: none; margin: 0; }
       .catalogue-carousel { gap: 8px; }
       .catalogue-arrow { flex-basis: 36px; width: 36px; height: 36px; }
-      .catalogue-track > .product { flex-basis: min(78vw, 340px); }
+      .catalogue-track > .product { flex-basis: min(70vw, 280px); }
+      .product-art { min-height: 180px; }
+      .product-art img { height: 180px; }
+      .product-info { padding: 16px; }
+      .product-info h3 { font-size: 1.15rem; }
+      .product-info p { min-height: 40px; margin-bottom: 12px; font-size: .8rem; }
+      .product-actions { padding: 0 16px 16px; }
+      .small-order { padding: 8px 10px; white-space: nowrap; }
+      .jewelry-example-art { height: 180px; min-height: 180px; }
       .jewelry-builder { grid-template-columns: 1fr; }
       .jewelry-products { max-width: none; }
       .bear-launch { max-width: 470px; padding: 19px; }
@@ -238,6 +246,24 @@
       .dialog-info { padding: 28px 25px; }
       .custom-wrap, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
       .section { padding: 65px 20px; }
+    }
+    @media (max-width: 480px) {
+      .section#katalogus, .section.jewelry-section { padding: 48px 16px; }
+      .section#katalogus .section-heading, .jewelry-section .section-heading { margin-bottom: 26px; }
+      .catalogue-carousel { gap: 5px; }
+      .catalogue-arrow { flex-basis: 30px; width: 30px; height: 30px; font-size: 1rem; }
+      .catalogue-track > .product { flex-basis: min(88%, 270px); }
+      .product-art { min-height: 150px; }
+      .product-art img { height: 150px; padding: 6px; }
+      .jewelry-products .jewelry-example-art { height: 150px; min-height: 150px; }
+      .product-info { padding: 13px; }
+      .product-info h3 { margin-bottom: 6px; font-size: 1.05rem; }
+      .product-info p { min-height: 36px; margin-bottom: 9px; font-size: .76rem; line-height: 1.45; }
+      .product-hint { font-size: .72rem; }
+      .product-actions { padding: 0 13px 13px; }
+      .price-row { gap: 6px; }
+      .price { font-size: 1rem; }
+      .small-order { padding: 7px 8px; font-size: .7rem; }
     }
   </style>
 </head>
