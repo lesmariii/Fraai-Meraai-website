@@ -68,7 +68,13 @@
     .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .product { background: white; border: 1px solid #f0e5e0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(99,59,69,.05); transition: .25s; }
     .product:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .product-art { min-height: 220px; display: grid; place-items: center; background: linear-gradient(145deg, #f5e4df, #f8eee7); font-size: 5rem; }
+    .product-art { min-height: 220px; display: grid; place-items: center; background: linear-gradient(145deg, #f5e4df, #f8eee7); font-size: 5rem; }.product-art img {
+    width: 100%;
+    height: 260px;
+    object-fit: contain;
+    display: block;
+    padding: 10px;
+}
     .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
     .product-info { padding: 23px; }
@@ -280,7 +286,12 @@
     };
 
     const products = [
-      { name: "Glow Up", price: "R200", description: "'n Lieflike bederfie vir iemand wat 'n ekstra bietjie liefde verdien.", emoji: "🎀" },
+      {
+    name: "Glow Up",
+    price: "R200",
+    description: "'n Lieflike bederfie vir iemand wat ekstra liefde verdien.",
+    image: "images/luukse-fraai-meraai.webp"
+},
       { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", emoji: "🌷" },
       { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", emoji: "💝" }
     ];
@@ -300,7 +311,11 @@
 
     document.getElementById("product-list").innerHTML = products.map((p, i) => `
       <article class="product">
-        <div class="product-art" aria-hidden="true">${p.emoji}</div>
+        <div class="product-art">
+    ${p.image
+        ? `<img src="${p.image}" alt="${p.name}">`
+        : p.emoji}
+</div>
         <div class="product-info">
           <h3>${p.name}</h3>
           <p>${p.description}</p>
