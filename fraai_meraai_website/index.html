@@ -86,13 +86,75 @@
 }
     .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
+    .product-preview { display: block; width: 100%; padding: 0; border: 0; background: transparent; color: inherit; text-align: left; font: inherit; cursor: pointer; }
+    .product-preview:focus-visible, .product-dialog button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
     .product-info { padding: 23px; }
     .product-info h3 { font-size: 1.45rem; color: var(--wine); margin: 0 0 9px; }
     .product-info p { min-height: 48px; color: var(--muted); line-height: 1.6; font-size: .88rem; margin: 0 0 18px; }
+    .product-hint { color: var(--rose); font-size: .8rem; font-weight: 700; }
+    .product-actions { padding: 0 23px 23px; }
     .price-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
     .price { font-weight: 700; color: var(--rose); font-size: 1.15rem; }
     .small-order { border: 1px solid #d9b9b6; border-radius: 99px; color: var(--wine); padding: 9px 14px; font-size: .78rem; font-weight: 700; }
     .small-order:hover { background: var(--blush); }
+    .product-dialog { position: relative; width: min(880px, calc(100% - 32px)); max-width: none; max-height: min(90vh, 760px); padding: 0; border: 0; border-radius: 18px; overflow: auto; color: var(--ink); background: var(--cream); box-shadow: 0 24px 80px rgba(40,20,25,.3); }
+    .product-dialog::backdrop { background: rgba(36, 22, 27, .68); backdrop-filter: blur(4px); }
+    .dialog-close { position: absolute; z-index: 1; top: 12px; right: 12px; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: white; color: var(--wine); font-size: 1.6rem; cursor: pointer; box-shadow: 0 3px 12px rgba(99,59,69,.15); }
+    .dialog-content { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 400px; }
+    .dialog-art { display: grid; place-items: center; min-height: 400px; padding: 28px; background: linear-gradient(145deg, #f5e4df, #f8eee7); }
+    .dialog-art img { display: block; width: 100%; height: 100%; max-height: 520px; object-fit: contain; }
+    .dialog-emoji { font-size: clamp(7rem, 18vw, 12rem); }
+    .dialog-info { align-self: center; padding: 52px 38px 38px; }
+    .dialog-info h2 { margin: 10px 0 14px; color: var(--wine); font-size: clamp(2rem, 4vw, 2.8rem); }
+    .dialog-info p { color: var(--muted); line-height: 1.8; }
+    .product-contents { margin: 0 0 20px; padding-left: 1.25rem; color: var(--muted); line-height: 1.55; }
+    .product-contents li { margin-bottom: 8px; padding-left: 3px; }
+    .dialog-info .price { display: block; margin: 20px 0; font-size: 1.4rem; }
+    .jewelry-section { background: linear-gradient(180deg, #fffaf6, #f8ece7); }
+    .jewelry-products .product-art { min-height: 240px; background: linear-gradient(145deg, #f4e3df, #f9f1e7); }
+    .jewelry-products .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
+    .jewelry-products .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
+    .jewelry-example-art { width: 100%; height: 240px; display: grid; place-items: center; overflow: hidden; color: var(--rose); font-size: 5rem; }
+    .jewelry-example-art img { width: 100%; height: 100%; object-fit: cover; }
+    .jewelry-example-art span { display: grid; place-items: center; width: 100%; height: 100%; }
+    .jewelry-note { max-width: 720px; margin: 30px auto 0; color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
+    .jewelry-metal-options { display: flex; justify-content: center; gap: 12px; margin: 0 0 28px; }
+    .jewelry-metal-button { min-width: 130px; border: 1px solid #d9b9b6; border-radius: 99px; padding: 12px 24px; background: white; color: var(--wine); font: 600 .9rem "DM Sans", sans-serif; cursor: pointer; transition: .2s; }
+    .jewelry-metal-button[aria-pressed="true"], .jewelry-metal-button:hover { border-color: var(--wine); background: var(--wine); color: white; }
+    .jewelry-metal-button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+    .jewelry-catalog-heading { margin: 0 0 22px; color: var(--wine); font: 600 1.65rem "Playfair Display", serif; text-align: center; }
+    .builder-return { display: flex; width: fit-content; margin: 0 auto 26px; }
+    .bear-launch { width: 100%; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 20px; max-width: 620px; margin: 42px auto 0; padding: 22px 28px; border: 1px solid #e8d2ca; border-radius: 20px; background: rgba(255,255,255,.82); box-shadow: var(--shadow); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: .2s; }
+    .bear-launch:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(99,59,69,.15); }
+    .bear-launch-figure { display: block; font-size: 5.3rem; line-height: 1; }
+    .bear-launch-copy { display: grid; justify-items: start; gap: 9px; }
+    .bear-launch-copy strong { color: var(--wine); font: 600 1.35rem "Playfair Display", serif; }
+    .bear-sign { display: inline-block; padding: 8px 14px; border: 2px solid #d5b17b; border-radius: 7px; background: #fff7df; color: var(--wine); font-weight: 700; transform: rotate(-2deg); }
+    .jewelry-builder-section { background: #f5e9e4; }
+    .builder-welcome { display: flex; justify-content: center; align-items: center; gap: 18px; max-width: 660px; margin: -10px auto 36px; }
+    .builder-bear { font-size: 4.5rem; line-height: 1; }
+    .builder-speech { margin: 0; padding: 17px 22px; border-radius: 18px; background: white; color: var(--wine); box-shadow: 0 8px 24px rgba(99,59,69,.08); font: italic 1.25rem "Playfair Display", serif; }
+    .jewelry-type-picker { display: flex; justify-content: center; gap: 12px; margin: 0 0 28px; }
+    .jewelry-type-button { border: 1px solid #d9b9b6; border-radius: 99px; padding: 12px 22px; background: white; color: var(--wine); font: 600 .9rem "DM Sans", sans-serif; cursor: pointer; transition: .2s; }
+    .jewelry-type-button[aria-pressed="true"], .jewelry-type-button:hover { border-color: var(--wine); background: var(--wine); color: white; }
+    .jewelry-builder { max-width: 1080px; margin: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch; }
+    .jewelry-panel { padding: 25px; border: 1px solid #f0e5e0; border-radius: 18px; background: rgba(255,255,255,.9); box-shadow: 0 8px 30px rgba(99,59,69,.05); }
+    .jewelry-panel h3 { margin: 0 0 8px; color: var(--wine); font-size: 1.4rem; }
+    .jewelry-panel-copy { margin: 0 0 18px; color: var(--muted); font-size: .86rem; line-height: 1.6; }
+    .jewelry-preview { display: grid; place-items: center; min-height: 300px; padding: 10px; border-radius: 14px; background: radial-gradient(circle, #fff 0, #fbf3ed 72%); }
+    .jewelry-preview svg { display: block; width: 100%; max-width: 430px; height: auto; overflow: visible; }
+    .jewelry-preview-label { margin: 12px 0 0; color: var(--wine); font-weight: 700; text-align: center; }
+    .jewelry-preview-status { min-height: 42px; margin: 8px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.5; text-align: center; }
+    .charm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
+    .charm-choice { min-height: 106px; display: grid; align-content: center; justify-items: center; gap: 7px; padding: 10px 6px; border: 1px solid #eadbd5; border-radius: 13px; background: #fffaf6; color: var(--wine); font: 600 .76rem "DM Sans", sans-serif; cursor: pointer; transition: .18s; }
+    .charm-choice:hover { border-color: var(--rose); transform: translateY(-2px); }
+    .charm-choice[aria-pressed="true"] { border-color: var(--rose); background: var(--blush); box-shadow: inset 0 0 0 1px var(--rose); }
+    .charm-choice:focus-visible, .jewelry-type-button:focus-visible, .clear-charms:focus-visible, .bear-launch:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+    .charm-art { width: 44px; height: 44px; display: grid; place-items: center; font-size: 2rem; }
+    .charm-art img { width: 100%; height: 100%; object-fit: contain; }
+    .charm-choice small { color: var(--rose); font-size: .68rem; }
+    .clear-charms { display: block; margin: 17px auto 0; padding: 8px 13px; border: 1px solid #d9b9b6; border-radius: 99px; background: transparent; color: var(--wine); font: 600 .78rem "DM Sans", sans-serif; cursor: pointer; }
+    .clear-charms:hover { background: var(--blush); }
     .custom { background: #f5e9e4; }
     .custom-wrap { max-width: 950px; margin: auto; display: grid; grid-template-columns: .9fr 1.1fr; gap: 50px; align-items: center; }
     .custom h2 { color: var(--wine); font-size: 2.8rem; line-height: 1.12; margin: 14px 0; }
@@ -151,6 +213,16 @@
       nav.open { display: flex; } .nav-cta { display: none; }
       .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 20px; }
       .hero-art { min-height: 390px; } .products { grid-template-columns: 1fr; max-width: 470px; margin: auto; }
+      .jewelry-builder { grid-template-columns: 1fr; }
+      .jewelry-products { max-width: 470px; }
+      .bear-launch { max-width: 470px; padding: 19px; }
+      .builder-welcome { gap: 10px; }
+      .builder-bear { font-size: 3.5rem; }
+      .builder-speech { padding: 14px 16px; font-size: 1.05rem; }
+      .jewelry-panel { padding: 20px; }
+      .dialog-content { grid-template-columns: 1fr; }
+      .dialog-art { min-height: 250px; height: 42vh; max-height: 380px; }
+      .dialog-info { padding: 28px 25px; }
       .custom-wrap, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
       .section { padding: 65px 20px; }
     }
@@ -181,7 +253,7 @@
       <a class="brand" href="#tuis"><strong>Fraai Meraai</strong><span>Geskenk Boks</span></a>
       <button class="menu-toggle" aria-label="Maak kieslys oop" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
       <nav>
-        <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
+        <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#fraai-juwele">Fraai Juwele</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
       </nav>
       <a class="nav-cta" href="#katalogus">Vind jou bederfie</a>
     </div>
@@ -215,6 +287,70 @@
         <p>Elke boks is 'n klein oomblik van vreugde. Kies jou gunsteling, of kontak ons om iets persoonliks saam te stel.</p>
       </div>
       <div class="products" id="product-list"></div>
+    </section>
+    <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-dialog-title">
+      <button class="dialog-close" id="close-product-dialog" type="button" aria-label="Maak besonderhede toe">×</button>
+      <div id="product-dialog-content"></div>
+    </dialog>
+
+    <section class="section jewelry-section" id="fraai-juwele">
+      <div class="section-heading">
+        <div class="eyebrow">Klein juwele, groot vreugde</div>
+        <h2>Fraai Juwele</h2>
+        <p>Ontdek jou nuwe gunsteling of ontwerp self 'n halssnoer of armband met jou eie bedels.</p>
+      </div>
+      <div class="jewelry-metal-options" role="group" aria-label="Kies jou juwelekatalogus">
+        <button class="jewelry-metal-button" type="button" data-jewelry-metal="gold" aria-pressed="true">Goud</button>
+        <button class="jewelry-metal-button" type="button" data-jewelry-metal="silver" aria-pressed="false">Silwer</button>
+      </div>
+      <h3 class="jewelry-catalog-heading" id="jewelry-catalog-heading">Goudkatalogus</h3>
+      <div class="products jewelry-products" id="jewelry-product-list"></div>
+      <p class="jewelry-note">Hierdie is voorbeeldkaartjies. Vervang later die voorbeeldname, beskrywings en foto's in die juwele-katalogus.</p>
+      <button class="bear-launch" id="bear-launch" type="button" aria-controls="juwele-ateljee" aria-expanded="false">
+        <span class="bear-launch-figure" aria-hidden="true">🧸</span>
+        <span class="bear-launch-copy">
+          <strong>Kom bou iets spesiaals saam met my!</strong>
+          <span class="bear-sign">Druk op my! ♡</span>
+        </span>
+      </button>
+    </section>
+
+    <section class="section jewelry-builder-section" id="juwele-ateljee" hidden>
+      <div class="section-heading">
+        <div class="eyebrow">Jou ontwerp, jou styl</div>
+        <h2>Die Juwele-Ateljee</h2>
+        <p>Kies 'n halssnoer of armband, en druk op die bedels om hulle op jou ontwerp te sien. Druk weer om 'n bedel te verwyder.</p>
+      </div>
+      <button class="button secondary builder-return" id="close-jewelry-builder" type="button">Terug na die juwele-katalogus</button>
+      <div class="builder-welcome">
+        <span class="builder-bear" aria-hidden="true">🧸</span>
+        <p class="builder-speech">Kom ons bou ons eie juwele!</p>
+      </div>
+      <div class="jewelry-type-picker" role="group" aria-label="Kies jou juweel">
+        <button class="jewelry-type-button" type="button" data-jewelry-type="necklace" aria-pressed="true">Halssnoer</button>
+        <button class="jewelry-type-button" type="button" data-jewelry-type="bracelet" aria-pressed="false">Armband</button>
+      </div>
+      <div class="jewelry-builder">
+        <div class="jewelry-panel">
+          <h3>Jou ontwerp</h3>
+          <p class="jewelry-panel-copy">Jou bedels verskyn hier soos jy hulle kies.</p>
+          <div class="jewelry-preview">
+            <svg id="jewelry-preview" viewBox="0 0 400 280" role="img" aria-label="Leë halssnoer-voorskou">
+              <path id="jewelry-chain-shadow" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#f0d7a2" stroke-width="10" stroke-linecap="round"></path>
+              <path id="jewelry-chain" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#bd914c" stroke-width="3" stroke-linecap="round"></path>
+              <g id="jewelry-preview-charms" aria-hidden="true"></g>
+            </svg>
+          </div>
+          <p class="jewelry-preview-label" id="jewelry-preview-label">Jou halssnoer</p>
+          <p class="jewelry-preview-status" id="jewelry-preview-status" aria-live="polite">Kies bedels om jou ontwerp te begin.</p>
+        </div>
+        <div class="jewelry-panel">
+          <h3>Kies jou bedels</h3>
+          <p class="jewelry-panel-copy">Voorbeeldbedels — vervang later met jou eie foto's en name.</p>
+          <div class="charm-grid" id="charm-list"></div>
+          <button class="clear-charms" id="clear-charms" type="button">Maak ontwerp leeg</button>
+        </div>
+      </div>
     </section>
 
     <section class="custom" id="pasgemaak">
@@ -296,13 +432,45 @@
 
     const products = [
       {
-    name: "Glow Up",
-    price: "R200",
-    description: "'n Lieflike bederfie vir iemand wat ekstra liefde verdien.",
-    image: "images/luukse-fraai-meraai.webp"
-},
-      { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", emoji: "🌷" },
-      { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", emoji: "💝" }
+        name: "Luukse Fraai Meraai Geskenkboks",
+        price: "R380",
+        description: "'n Lieflike bederfie vir iemand wat ekstra liefde verdien.",
+        contents: [
+          "SAS Beauty Blueberry lyfroom (body lotion)",
+          "Charcoal Shervet lyfskrop (body scrub)",
+          "Onlyyou 30ml Eau de Parfum",
+          "USHAS Sweetday 9-kleur oogskadu-palet",
+          "8-stuk iBeauty grimeringkwassie-stel",
+          "Sagte strikkie-haarband",
+          "Super-sagte gesigwaslappie",
+          "Bella de Charm handeroom"
+        ],
+        image: "images/luukse-fraai-meraai.webp"
+      },
+      { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", details: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies. 'n Bedagsame geskenk om haar aan te moedig om tyd vir haarself te maak.", emoji: "🌷" },
+      { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", details: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak. 'n Deurdagte gebaar om jou waardering op 'n persoonlike manier te wys.", emoji: "💝" }
+    ];
+
+    // Vervang die voorbeeldname, pryse, beskrywings en leë beeldpaaie met jou juwele.
+    const goldJewelryProducts = [
+      { name: "Goudhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
+      { name: "Goudarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
+      { name: "Goudbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" }
+    ];
+    const silverJewelryProducts = [
+      { name: "Silwerhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
+      { name: "Silwerarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
+      { name: "Silwerbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" }
+    ];
+
+    // Vervang later die voorbeeld-emoji's met jou eie bedelname en beeldpaaie.
+    const availableCharms = [
+      { id: "heart", name: "Hartjie", emoji: "💖", image: "" },
+      { id: "star", name: "Sterretjie", emoji: "⭐", image: "" },
+      { id: "butterfly", name: "Vlinder", emoji: "🦋", image: "" },
+      { id: "flower", name: "Blommetjie", emoji: "🌸", image: "" },
+      { id: "pearl", name: "Pêrel", emoji: "🤍", image: "" },
+      { id: "moon", name: "Maan", emoji: "🌙", image: "" }
     ];
 
     function whatsappLink(message, phone = BUSINESS.whatsapp[0]) {
@@ -320,17 +488,178 @@
 
     document.getElementById("product-list").innerHTML = products.map((p, i) => `
       <article class="product">
-        <div class="product-art">
-    ${p.image
-        ? `<img src="${p.image}" alt="${p.name}">`
-        : p.emoji}
-</div>
-        <div class="product-info">
-          <h3>${p.name}</h3>
-          <p>${p.description}</p>
+        <button class="product-preview" type="button" data-product-index="${i}" aria-haspopup="dialog" aria-label="Bekyk ${p.name} se besonderhede">
+          <div class="product-art">
+            ${p.image ? `<img src="${p.image}" alt="">` : `<span aria-hidden="true">${p.emoji}</span>`}
+          </div>
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>${p.description}</p>
+            <span class="product-hint">Sien meer besonderhede →</span>
+          </div>
+        </button>
+        <div class="product-actions">
           <div class="price-row"><span class="price">${p.price}</span><a class="small-order" href="#" onclick="orderProduct('${p.name.replace(/'/g, "\\'")}');return false;">Bestel nou ↗</a></div>
         </div>
       </article>`).join("");
+
+    const jewelryProductList = document.getElementById("jewelry-product-list");
+    const jewelryCatalogHeading = document.getElementById("jewelry-catalog-heading");
+    function renderJewelryCatalog(metal) {
+      const isSilver = metal === "silver";
+      const products = isSilver ? silverJewelryProducts : goldJewelryProducts;
+      jewelryCatalogHeading.textContent = isSilver ? "Silwerkatalogus" : "Goudkatalogus";
+      jewelryProductList.setAttribute("aria-label", jewelryCatalogHeading.textContent);
+      jewelryProductList.innerHTML = products.map((product) => `
+        <article class="product">
+          <div class="product-art jewelry-example-art">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<span aria-hidden="true">${product.emoji}</span>`}
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <span class="price">${product.price}</span>
+          </div>
+        </article>`).join("");
+      document.querySelectorAll("[data-jewelry-metal]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.jewelryMetal === metal));
+      });
+    }
+    document.querySelectorAll("[data-jewelry-metal]").forEach((button) => {
+      button.addEventListener("click", () => renderJewelryCatalog(button.dataset.jewelryMetal));
+    });
+    renderJewelryCatalog("gold");
+
+    const jewelryBuilderSection = document.getElementById("juwele-ateljee");
+    const bearLaunchButton = document.getElementById("bear-launch");
+    bearLaunchButton.addEventListener("click", () => {
+      jewelryBuilderSection.hidden = false;
+      bearLaunchButton.setAttribute("aria-expanded", "true");
+      jewelryBuilderSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+    document.getElementById("close-jewelry-builder").addEventListener("click", () => {
+      jewelryBuilderSection.hidden = true;
+      bearLaunchButton.setAttribute("aria-expanded", "false");
+      bearLaunchButton.focus();
+      document.getElementById("fraai-juwele").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+
+    document.getElementById("charm-list").innerHTML = availableCharms.map((charm) => `
+      <button class="charm-choice" type="button" data-charm-id="${charm.id}" aria-pressed="false" aria-label="Voeg ${charm.name} by">
+        <span class="charm-art">${charm.image ? `<img src="${charm.image}" alt="">` : `<span aria-hidden="true">${charm.emoji}</span>`}</span>
+        <span>${charm.name}</span>
+        <small>Druk om te kies</small>
+      </button>`).join("");
+
+    let jewelryType = "necklace";
+    const selectedCharmIds = new Set();
+    const necklacePath = "M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30";
+    const braceletPath = "M 200 36 A 145 104 0 1 1 199.9 36";
+    const jewelryPreview = document.getElementById("jewelry-preview");
+    const jewelryPreviewCharms = document.getElementById("jewelry-preview-charms");
+
+    function updateJewelryPreview() {
+      const isBracelet = jewelryType === "bracelet";
+      const jewelryLabel = isBracelet ? "armband" : "halssnoer";
+      const path = isBracelet ? braceletPath : necklacePath;
+      document.getElementById("jewelry-chain").setAttribute("d", path);
+      document.getElementById("jewelry-chain-shadow").setAttribute("d", path);
+      document.getElementById("jewelry-preview-label").textContent = `Jou ${jewelryLabel}`;
+      document.querySelectorAll("[data-jewelry-type]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.jewelryType === jewelryType));
+      });
+
+      const selectedCharms = availableCharms.filter((charm) => selectedCharmIds.has(charm.id));
+      jewelryPreviewCharms.innerHTML = selectedCharms.map((charm, index) => {
+        let x;
+        let y;
+        if (isBracelet) {
+          const angle = -Math.PI / 2 + (2 * Math.PI * index / selectedCharms.length);
+          x = 200 + 145 * Math.cos(angle);
+          y = 140 + 104 * Math.sin(angle);
+        } else {
+          const t = selectedCharms.length === 1 ? 0.5 : 0.15 + (0.7 * index / (selectedCharms.length - 1));
+          x = 55 + 290 * t;
+          y = 30 + 214 * Math.sin(Math.PI * t);
+        }
+        const charmArt = charm.image
+          ? `<image href="${charm.image}" x="-16" y="-16" width="32" height="32" preserveAspectRatio="xMidYMid meet"></image>`
+          : `<text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-size="21">${charm.emoji}</text>`;
+        return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="18" fill="#fffaf6" stroke="#bd914c" stroke-width="2"></circle>${charmArt}</g>`;
+      }).join("");
+
+      const selectedNames = selectedCharms.map((charm) => charm.name);
+      jewelryPreview.setAttribute("aria-label", selectedNames.length
+        ? `Voorskou van jou ${jewelryLabel} met ${selectedNames.join(", ")}`
+        : `Leë ${jewelryLabel}-voorskou`);
+      document.getElementById("jewelry-preview-status").textContent = selectedNames.length
+        ? `${selectedNames.length} ${selectedNames.length === 1 ? "bedel" : "bedels"} gekies: ${selectedNames.join(", ")}. Druk weer op 'n bedel om dit te verwyder.`
+        : "Kies bedels om jou ontwerp te begin.";
+
+      document.querySelectorAll("[data-charm-id]").forEach((button) => {
+        const isSelected = selectedCharmIds.has(button.dataset.charmId);
+        button.setAttribute("aria-pressed", String(isSelected));
+        button.setAttribute("aria-label", `${isSelected ? "Verwyder" : "Voeg by"} ${availableCharms.find((charm) => charm.id === button.dataset.charmId).name}`);
+        button.querySelector("small").textContent = isSelected ? "Gekies" : "Druk om te kies";
+      });
+    }
+
+    document.querySelectorAll("[data-jewelry-type]").forEach((button) => {
+      button.addEventListener("click", () => {
+        jewelryType = button.dataset.jewelryType;
+        updateJewelryPreview();
+      });
+    });
+    document.getElementById("charm-list").addEventListener("click", (event) => {
+      const button = event.target.closest("[data-charm-id]");
+      if (!button) return;
+      const charmId = button.dataset.charmId;
+      if (selectedCharmIds.has(charmId)) selectedCharmIds.delete(charmId);
+      else selectedCharmIds.add(charmId);
+      updateJewelryPreview();
+    });
+    document.getElementById("clear-charms").addEventListener("click", () => {
+      selectedCharmIds.clear();
+      updateJewelryPreview();
+    });
+    updateJewelryPreview();
+
+    const productDialog = document.getElementById("product-dialog");
+    const productDialogContent = document.getElementById("product-dialog-content");
+    let catalogueScrollPosition = 0;
+    document.getElementById("product-list").addEventListener("click", (event) => {
+      const preview = event.target.closest("[data-product-index]");
+      if (preview) openProductDetails(Number(preview.dataset.productIndex));
+    });
+    document.getElementById("close-product-dialog").addEventListener("click", () => productDialog.close());
+    productDialog.addEventListener("close", () => {
+      window.scrollTo({ top: catalogueScrollPosition, behavior: "instant" });
+    });
+    productDialog.addEventListener("click", (event) => {
+      if (event.target === productDialog) productDialog.close();
+    });
+
+    function openProductDetails(index) {
+      const product = products[index];
+      if (!product) return;
+      catalogueScrollPosition = window.scrollY;
+      productDialogContent.innerHTML = `
+        <div class="dialog-content">
+          <div class="dialog-art">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<span class="dialog-emoji" aria-hidden="true">${product.emoji}</span>`}
+          </div>
+          <div class="dialog-info">
+            <div class="eyebrow">Met liefde saamgestel</div>
+            <h2 id="product-dialog-title">${product.name}</h2>
+            ${product.contents
+              ? `<p><strong>In die boks:</strong></p><ul class="product-contents">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
+              : `<p>${product.details || product.description}</p>`}
+            <span class="price">${product.price}</span>
+            <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">Vra oor hierdie boks ♡</button>
+          </div>
+        </div>`;
+      productDialog.showModal();
+    }
 
     document.getElementById("contact-phone").innerHTML = "WhatsApp: " + BUSINESS.whatsapp.map((phone) => {
       const displayPhone = "0" + phone.slice(2).replace(/(\d{2})(\d{3})(\d{4})/, "$1 $2 $3");
