@@ -108,6 +108,8 @@
     .small-order:hover { background: var(--blush); }
     .product-dialog { position: relative; width: min(880px, calc(100% - 32px)); max-width: none; max-height: min(90vh, 760px); padding: 0; border: 0; border-radius: 18px; overflow: auto; color: var(--ink); background: var(--cream); box-shadow: 0 24px 80px rgba(40,20,25,.3); }
     .product-dialog::backdrop { background: rgba(36, 22, 27, .68); backdrop-filter: blur(4px); }
+    body.product-dialog-fallback-open::before { content: ""; position: fixed; inset: 0; z-index: 1000; background: rgba(36, 22, 27, .68); backdrop-filter: blur(4px); }
+    .product-dialog.product-dialog-fallback { display: block; position: fixed; z-index: 1001; top: 50%; left: 50%; margin: 0; transform: translate(-50%, -50%); }
     .dialog-close { position: absolute; z-index: 1; top: 12px; right: 12px; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: white; color: var(--wine); font-size: 1.6rem; cursor: pointer; box-shadow: 0 3px 12px rgba(99,59,69,.15); }
     .dialog-content { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 400px; }
     .dialog-art { display: grid; place-items: center; min-height: 400px; padding: 28px; background: linear-gradient(145deg, #f5e4df, #f8eee7); }
@@ -849,6 +851,19 @@
     const productDialog = document.getElementById("product-dialog");
     const productDialogContent = document.getElementById("product-dialog-content");
     let catalogueScrollPosition = 0;
+    let productDialogTrigger = null;
+    function closeProductDialog() {
+      if (productDialog.classList.contains("product-dialog-fallback")) {
+        productDialog.classList.remove("product-dialog-fallback");
+        productDialog.removeAttribute("open");
+        document.body.classList.remove("product-dialog-fallback-open");
+        window.scrollTo({ top: catalogueScrollPosition, behavior: "instant" });
+        if (productDialogTrigger) productDialogTrigger.focus();
+      } else if (productDialog.open) {
+        productDialog.close();
+      }
+    }
+
     document.getElementById("product-list").addEventListener("click", (event) => {
       const preview = event.target.closest("[data-product-index]");
       if (preview) {
@@ -865,17 +880,26 @@
       const product = jewelryProducts[index];
       if (product) openProductDetails(product, product.image || sampleCatalogImage("jewelry", index, metal), true);
     });
-    document.getElementById("close-product-dialog").addEventListener("click", () => productDialog.close());
+    document.getElementById("close-product-dialog").addEventListener("click", closeProductDialog);
     productDialog.addEventListener("close", () => {
       window.scrollTo({ top: catalogueScrollPosition, behavior: "instant" });
     });
     productDialog.addEventListener("click", (event) => {
-      if (event.target === productDialog) productDialog.close();
+      if (event.target === productDialog) closeProductDialog();
+    });
+    document.addEventListener("click", (event) => {
+      if (!productDialog.classList.contains("product-dialog-fallback") || productDialog.contains(event.target)) return;
+      if (event.target.closest && event.target.closest("[data-product-index], [data-jewelry-product-index]")) return;
+      closeProductDialog();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && productDialog.classList.contains("product-dialog-fallback")) closeProductDialog();
     });
 
     function openProductDetails(product, image, isJewelry) {
       if (!product) return;
       catalogueScrollPosition = window.scrollY;
+      productDialogTrigger = document.activeElement;
       productDialogContent.innerHTML = `
         <div class="dialog-content">
           <div class="dialog-art">
@@ -891,7 +915,14 @@
             <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">${isJewelry ? "Bestel nou ↗" : "Vra oor hierdie boks ♡"}</button>
           </div>
         </div>`;
-      productDialog.showModal();
+      if (typeof productDialog.showModal === "function") {
+        productDialog.showModal();
+      } else {
+        productDialog.classList.add("product-dialog-fallback");
+        document.body.classList.add("product-dialog-fallback-open");
+        productDialog.setAttribute("open", "");
+        document.getElementById("close-product-dialog").focus();
+      }
     }
 
     document.getElementById("contact-phone").innerHTML = "WhatsApp: " + BUSINESS.whatsapp.map((phone) => {
