@@ -124,7 +124,7 @@
     .jewelry-products .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .jewelry-products .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
     .jewelry-example-art { width: 100%; height: 240px; display: grid; place-items: center; overflow: hidden; color: var(--rose); font-size: 5rem; }
-    .jewelry-example-art img { width: 100%; height: 100%; object-fit: cover; }
+    .jewelry-example-art img { width: 100%; height: 100%; padding: 8px; object-fit: contain; }
     .jewelry-example-art span { display: grid; place-items: center; width: 100%; height: 100%; }
     .jewelry-note { max-width: 720px; margin: 30px auto 0; color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
     .jewelry-metal-options { display: flex; justify-content: center; gap: 12px; margin: 0 0 28px; }
@@ -591,17 +591,17 @@
       { name: "Emerald Princess Necklace",
         price: "R200",
         description: "Green Emerald CZ Halo stainless steel",
-        image: "image/emerald-fraai-meraai.webp"
+        image: "images/emeraldprincess-fraai-meraai.webp",
       },
-      { name: "Sapphire Princess Necklace", 
+      { name: "Sapphire Princess Necklace",
       price: "R200", 
       description: "Blue Sapphire CZ Halo stainless steel", 
-      image: "image/sapphire-fraai-meraai.webp" 
+      image: "images/sapphireprincess-fraai-meraai.webp",
     },
-      { name: "Pearl Drop Necklace", 
+      { name: "PearlDrop Necklace",
       price: "R280", 
       description: "White pearl 70cm stainless steel", 
-      image: "image/pearlsdrop-fraai-meraai.webp" 
+      image: "images/pearldrop-fraai-meraai.webp",
     },
       { name: "Silwerjuweel-voorbeeld 01", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "silver") },
       { name: "Silwerjuweel-voorbeeld 02", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "silver") },
@@ -698,13 +698,21 @@
       jewelryProductList.setAttribute("aria-label", jewelryCatalogHeading.textContent);
       jewelryProductList.innerHTML = products.map((product, index) => `
         <article class="product">
-          <div class="product-art jewelry-example-art">
-            <img src="${product.image || sampleCatalogImage("jewelry", index, metal)}" alt="${product.name}">
-          </div>
-          <div class="product-info">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-            <span class="price">${product.price}</span>
+          <button class="product-preview" type="button" data-jewelry-product-index="${index}" aria-haspopup="dialog" aria-label="Bekyk ${product.name} se besonderhede">
+            <div class="product-art jewelry-example-art">
+              <img src="${product.image || sampleCatalogImage("jewelry", index, metal)}" alt="${product.name}">
+            </div>
+            <div class="product-info">
+              <h3>${product.name}</h3>
+              <p>${product.description}</p>
+              <span class="product-hint">Sien meer besonderhede →</span>
+            </div>
+          </button>
+          <div class="product-actions">
+            <div class="price-row">
+              <span class="price">${product.price}</span>
+              <a class="small-order" href="${whatsappLink(`Hallo Fraai Meraai! Ek wil graag die ${product.name} bestel. Kan julle asseblief help?`)}" target="_blank" rel="noreferrer">Bestel nou ↗</a>
+            </div>
           </div>
         </article>`).join("");
       jewelryProductList.scrollLeft = 0;
@@ -817,7 +825,19 @@
     let catalogueScrollPosition = 0;
     document.getElementById("product-list").addEventListener("click", (event) => {
       const preview = event.target.closest("[data-product-index]");
-      if (preview) openProductDetails(Number(preview.dataset.productIndex));
+      if (preview) {
+        const product = products[Number(preview.dataset.productIndex)];
+        if (product) openProductDetails(product, product.image, false);
+      }
+    });
+    jewelryProductList.addEventListener("click", (event) => {
+      const preview = event.target.closest("[data-jewelry-product-index]");
+      if (!preview) return;
+      const metal = document.querySelector('[data-jewelry-metal][aria-pressed="true"]').dataset.jewelryMetal;
+      const index = Number(preview.dataset.jewelryProductIndex);
+      const jewelryProducts = metal === "silver" ? silverJewelryProducts : goldJewelryProducts;
+      const product = jewelryProducts[index];
+      if (product) openProductDetails(product, product.image || sampleCatalogImage("jewelry", index, metal), true);
     });
     document.getElementById("close-product-dialog").addEventListener("click", () => productDialog.close());
     productDialog.addEventListener("close", () => {
@@ -827,23 +847,22 @@
       if (event.target === productDialog) productDialog.close();
     });
 
-    function openProductDetails(index) {
-      const product = products[index];
+    function openProductDetails(product, image, isJewelry) {
       if (!product) return;
       catalogueScrollPosition = window.scrollY;
       productDialogContent.innerHTML = `
         <div class="dialog-content">
           <div class="dialog-art">
-            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<span class="dialog-emoji" aria-hidden="true">${product.emoji}</span>`}
+            ${image ? `<img src="${image}" alt="${product.name}">` : `<span class="dialog-emoji" aria-hidden="true">${product.emoji || "💝"}</span>`}
           </div>
           <div class="dialog-info">
-            <div class="eyebrow">Met liefde saamgestel</div>
+            <div class="eyebrow">${isJewelry ? "Fraai Juwele" : "Met liefde saamgestel"}</div>
             <h2 id="product-dialog-title">${product.name}</h2>
             ${product.contents
               ? `<p><strong>In die boks:</strong></p><ul class="product-contents">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
-              : `<p>${product.details || product.description}</p>`}
+              : `<p>${isJewelry ? product.description : product.details || product.description}</p>`}
             <span class="price">${product.price}</span>
-            <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">Vra oor hierdie boks ♡</button>
+            <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">${isJewelry ? "Bestel nou ↗" : "Vra oor hierdie boks ♡"}</button>
           </div>
         </div>`;
       productDialog.showModal();
