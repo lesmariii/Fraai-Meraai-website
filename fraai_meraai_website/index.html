@@ -65,7 +65,16 @@
     .section-heading { text-align: center; max-width: 620px; margin: 0 auto 42px; }
     .section-heading h2 { color: var(--wine); font-size: clamp(2.2rem, 4vw, 3.25rem); margin: 12px 0; }
     .section-heading p { color: var(--muted); line-height: 1.7; }
-    .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .products { display: flex; gap: 24px; overflow-x: auto; padding: 8px 4px 20px; scroll-snap-type: x mandatory; scroll-padding-inline: 4px; overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--pink) transparent; }
+    .catalogue-carousel { display: flex; align-items: center; gap: 12px; }
+    .catalogue-track { flex: 1 1 auto; min-width: 0; scroll-behavior: smooth; }
+    .catalogue-track > .product { flex: 0 0 calc((100% - 48px) / 3); scroll-snap-align: start; }
+    .catalogue-track:focus-visible { outline: 3px solid var(--rose); outline-offset: 4px; }
+    .catalogue-arrow { flex: 0 0 42px; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #d9b9b6; border-radius: 50%; background: white; color: var(--wine); font-size: 1.25rem; cursor: pointer; transition: .2s; }
+    .catalogue-arrow:hover:not(:disabled) { background: var(--wine); color: white; }
+    .catalogue-arrow:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+    .catalogue-arrow:disabled { opacity: .4; cursor: not-allowed; }
+    @media (prefers-reduced-motion: reduce) { .catalogue-track { scroll-behavior: auto; } }
     .product { background: white; border: 1px solid #f0e5e0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(99,59,69,.05); transition: .25s; }
     .product:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
     .product-art {
@@ -212,9 +221,13 @@
       nav { display: none; position: absolute; left: 0; right: 0; top: 100%; padding: 20px; background: var(--cream); flex-direction: column; gap: 20px; border-bottom: 1px solid #f0e4df; }
       nav.open { display: flex; } .nav-cta { display: none; }
       .hero { grid-template-columns: 1fr; padding-top: 55px; gap: 20px; }
-      .hero-art { min-height: 390px; } .products { grid-template-columns: 1fr; max-width: 470px; margin: auto; }
+      .hero-art { min-height: 390px; }
+      .products { max-width: none; margin: 0; }
+      .catalogue-carousel { gap: 8px; }
+      .catalogue-arrow { flex-basis: 36px; width: 36px; height: 36px; }
+      .catalogue-track > .product { flex-basis: min(78vw, 340px); }
       .jewelry-builder { grid-template-columns: 1fr; }
-      .jewelry-products { max-width: 470px; }
+      .jewelry-products { max-width: none; }
       .bear-launch { max-width: 470px; padding: 19px; }
       .builder-welcome { gap: 10px; }
       .builder-bear { font-size: 3.5rem; }
@@ -286,7 +299,11 @@
         <h2>Vind die boks wat by haar pas</h2>
         <p>Elke boks is 'n klein oomblik van vreugde. Kies jou gunsteling, of kontak ons om iets persoonliks saam te stel.</p>
       </div>
-      <div class="products" id="product-list"></div>
+      <div class="catalogue-carousel">
+        <button class="catalogue-arrow" id="gift-catalog-prev" type="button" aria-label="Vorige geskenkbokse" disabled>←</button>
+        <div class="products catalogue-track" id="product-list" tabindex="0" role="region" aria-label="Geskenkbokse-katalogus"></div>
+        <button class="catalogue-arrow" id="gift-catalog-next" type="button" aria-label="Volgende geskenkbokse" disabled>→</button>
+      </div>
     </section>
     <dialog class="product-dialog" id="product-dialog" aria-labelledby="product-dialog-title">
       <button class="dialog-close" id="close-product-dialog" type="button" aria-label="Maak besonderhede toe">×</button>
@@ -304,7 +321,11 @@
         <button class="jewelry-metal-button" type="button" data-jewelry-metal="silver" aria-pressed="false">Silwer</button>
       </div>
       <h3 class="jewelry-catalog-heading" id="jewelry-catalog-heading">Goudkatalogus</h3>
-      <div class="products jewelry-products" id="jewelry-product-list"></div>
+      <div class="catalogue-carousel">
+        <button class="catalogue-arrow" id="jewelry-catalog-prev" type="button" aria-label="Vorige juwele" disabled>←</button>
+        <div class="products jewelry-products catalogue-track" id="jewelry-product-list" tabindex="0" role="region" aria-label="Juwelekatalogus"></div>
+        <button class="catalogue-arrow" id="jewelry-catalog-next" type="button" aria-label="Volgende juwele" disabled>→</button>
+      </div>
       <p class="jewelry-note">Elke vrou verdien om Fraai te voel.</p>
       <button class="bear-launch" id="bear-launch" type="button" aria-controls="juwele-ateljee" aria-expanded="false">
         <span class="bear-launch-figure" aria-hidden="true">🧸</span>
@@ -421,7 +442,7 @@
          Gebruik internasionale formaat sonder +, spasies of koppeltekens.
          Voorbeeld: 27821234567
       2. Vul jou e-pos en afleweringsgebied in.
-      3. Verander die produkte, beskrywings en pryse in die products-lys.
+      3. Verander die geskenk- en juweelprodukte, beskrywings en pryse in hul produklyste.
     */
     const BUSINESS = {
       website: "https://www.fraaimeraai.co.za",
@@ -429,6 +450,46 @@
       email: "vanniekerklesmari08@gmail.com", // VERVANG MET JOU E-POS
       area: "Virginia, Vrystaat" // VERVANG MET JOU AREA
     };
+
+    const sampleImageColors = ["#d99d9b", "#c28589", "#d4ad72", "#89947d", "#b58aa8", "#cf806e", "#8b9eae"];
+    function sampleCatalogImage(kind, index, metal = "gold") {
+      const accent = sampleImageColors[index % sampleImageColors.length];
+      const background = kind === "gift" ? "#fbf0e9" : "#f8f0e8";
+      let artwork;
+
+      if (kind === "gift") {
+        const ribbon = sampleImageColors[(index + 2) % sampleImageColors.length];
+        artwork = `
+          <ellipse cx="200" cy="248" rx="118" ry="12" fill="#633b45" opacity=".12"/>
+          <rect x="104" y="126" width="192" height="116" rx="10" fill="${accent}"/>
+          <rect x="91" y="99" width="218" height="42" rx="8" fill="${ribbon}"/>
+          <rect x="183" y="100" width="34" height="142" fill="#fff4e8" opacity=".9"/>
+          <path d="M200 102 C156 48 117 80 174 111 C185 117 194 113 200 107 C206 113 215 117 226 111 C283 80 244 48 200 102Z" fill="${ribbon}"/>
+          <path d="M200 108 C179 100 177 121 199 126 C221 121 221 100 200 108Z" fill="#fff4e8"/>
+          <circle cx="142" cy="166" r="5" fill="#fff4e8" opacity=".8"/>
+          <circle cx="258" cy="199" r="4" fill="#fff4e8" opacity=".8"/>`;
+      } else {
+        const metalColor = metal === "silver" ? "#9aa4ad" : "#c89a50";
+        const isBracelet = index % 2 === 1;
+        const chain = isBracelet
+          ? `<ellipse cx="200" cy="142" rx="123" ry="82" fill="none" stroke="${metalColor}" stroke-width="8"/><ellipse cx="200" cy="142" rx="123" ry="82" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>`
+          : `<path d="M86 46 C98 147 145 203 200 211 C255 203 302 147 314 46" fill="none" stroke="${metalColor}" stroke-width="8" stroke-linecap="round"/><path d="M86 46 C98 147 145 203 200 211 C255 203 302 147 314 46" fill="none" stroke="#fff" stroke-width="2" opacity=".8"/>`;
+        const charm = index % 3 === 0
+          ? `<path d="M200 229 C187 218 168 203 168 187 C168 167 192 163 200 180 C208 163 232 167 232 187 C232 203 213 218 200 229Z" fill="${accent}" stroke="${metalColor}" stroke-width="5"/>`
+          : index % 3 === 1
+            ? `<polygon points="200,165 211,187 236,191 218,208 222,232 200,221 178,232 182,208 164,191 189,187" fill="${accent}" stroke="${metalColor}" stroke-width="5" stroke-linejoin="round"/>`
+            : `<polygon points="200,165 231,194 200,229 169,194" fill="${accent}" stroke="${metalColor}" stroke-width="5" stroke-linejoin="round"/><path d="M169 194H231M200 165V229" stroke="#fff" stroke-width="3" opacity=".8"/>`;
+        artwork = `
+          <circle cx="200" cy="140" r="116" fill="#fff" opacity=".48"/>
+          ${chain}
+          <circle cx="200" cy="204" r="24" fill="#fff" opacity=".9"/>
+          ${charm}
+          <path d="M84 72l5 12 12 5-12 5-5 12-5-12-12-5 12-5zM314 92l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="${accent}" opacity=".72"/>`;
+      }
+
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 280"><rect width="400" height="280" rx="24" fill="${background}"/><circle cx="200" cy="140" r="112" fill="#fff" opacity=".38"/>${artwork}</svg>`;
+      return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+    }
 
     const products = [
       {
@@ -450,6 +511,14 @@
       { name: "Die Selfliefde Boks", price: "R450", description: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies.", details: "Vir stadiger oggende, klein rituele en onthou om jouself eerste te kies. 'n Bedagsame geskenk om haar aan te moedig om tyd vir haarself te maak.", emoji: "🌷" },
       { name: "Die Dankie-sê Boks", price: "R295", description: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak.", details: "'n Mooi manier om dankie te sê en iemand te laat weet sy maak saak. 'n Deurdagte gebaar om jou waardering op 'n persoonlike manier te wys.", emoji: "💝" }
     ];
+    for (let index = 1; index <= 20; index += 1) {
+      products.push({
+        name: `Voorbeeld Geskenkboks ${String(index).padStart(2, "0")}`,
+        price: "Voeg prys by",
+        description: "Vervang met jou geskenkboks se beskrywing.",
+        image: sampleCatalogImage("gift", index)
+      });
+    }
 
     // Vervang die voorbeeldname, pryse, beskrywings en leë beeldpaaie met jou juwele.
     const goldJewelryProducts = [
@@ -462,6 +531,20 @@
       { name: "Silwerarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
       { name: "Silwerbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" }
     ];
+    for (let index = 1; index <= 10; index += 1) {
+      goldJewelryProducts.push({
+        name: `Goudjuweel-voorbeeld ${String(index).padStart(2, "0")}`,
+        price: "Voeg prys by",
+        description: "Vervang met jou juweel se beskrywing.",
+        image: sampleCatalogImage("jewelry", index, "gold")
+      });
+      silverJewelryProducts.push({
+        name: `Silwerjuweel-voorbeeld ${String(index).padStart(2, "0")}`,
+        price: "Voeg prys by",
+        description: "Vervang met jou juweel se beskrywing.",
+        image: sampleCatalogImage("jewelry", index, "silver")
+      });
+    }
 
     // Vervang later die voorbeeld-emoji's met jou eie bedelname en beeldpaaie.
     const availableCharms = [
@@ -490,7 +573,7 @@
       <article class="product">
         <button class="product-preview" type="button" data-product-index="${i}" aria-haspopup="dialog" aria-label="Bekyk ${p.name} se besonderhede">
           <div class="product-art">
-            ${p.image ? `<img src="${p.image}" alt="">` : `<span aria-hidden="true">${p.emoji}</span>`}
+            <img src="${p.image || sampleCatalogImage("gift", i)}" alt="${p.name}">
           </div>
           <div class="product-info">
             <h3>${p.name}</h3>
@@ -503,17 +586,51 @@
         </div>
       </article>`).join("");
 
+    function setupCatalogueCarousel(trackId, previousButtonId, nextButtonId) {
+      const track = document.getElementById(trackId);
+      const previousButton = document.getElementById(previousButtonId);
+      const nextButton = document.getElementById(nextButtonId);
+
+      function refresh() {
+        const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+        previousButton.disabled = track.scrollLeft <= 1;
+        nextButton.disabled = maxScroll - track.scrollLeft <= 1;
+      }
+
+      function scrollByCard(direction) {
+        const firstCard = track.querySelector(".product");
+        const gap = Number.parseFloat(window.getComputedStyle(track).columnGap) || 0;
+        const distance = firstCard ? firstCard.getBoundingClientRect().width + gap : track.clientWidth;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        track.scrollBy({ left: direction * distance, behavior: reduceMotion ? "auto" : "smooth" });
+      }
+
+      previousButton.addEventListener("click", () => scrollByCard(-1));
+      nextButton.addEventListener("click", () => scrollByCard(1));
+      track.addEventListener("scroll", refresh);
+      track.addEventListener("keydown", (event) => {
+        if (event.target !== track || (event.key !== "ArrowLeft" && event.key !== "ArrowRight")) return;
+        event.preventDefault();
+        scrollByCard(event.key === "ArrowLeft" ? -1 : 1);
+      });
+      window.addEventListener("resize", refresh);
+      refresh();
+      return { refresh };
+    }
+
+    const giftCatalogCarousel = setupCatalogueCarousel("product-list", "gift-catalog-prev", "gift-catalog-next");
     const jewelryProductList = document.getElementById("jewelry-product-list");
     const jewelryCatalogHeading = document.getElementById("jewelry-catalog-heading");
+    const jewelryCatalogCarousel = setupCatalogueCarousel("jewelry-product-list", "jewelry-catalog-prev", "jewelry-catalog-next");
     function renderJewelryCatalog(metal) {
       const isSilver = metal === "silver";
       const products = isSilver ? silverJewelryProducts : goldJewelryProducts;
       jewelryCatalogHeading.textContent = isSilver ? "Silwerkatalogus" : "Goudkatalogus";
       jewelryProductList.setAttribute("aria-label", jewelryCatalogHeading.textContent);
-      jewelryProductList.innerHTML = products.map((product) => `
+      jewelryProductList.innerHTML = products.map((product, index) => `
         <article class="product">
           <div class="product-art jewelry-example-art">
-            ${product.image ? `<img src="${product.image}" alt="${product.name}">` : `<span aria-hidden="true">${product.emoji}</span>`}
+            <img src="${product.image || sampleCatalogImage("jewelry", index, metal)}" alt="${product.name}">
           </div>
           <div class="product-info">
             <h3>${product.name}</h3>
@@ -521,6 +638,8 @@
             <span class="price">${product.price}</span>
           </div>
         </article>`).join("");
+      jewelryProductList.scrollLeft = 0;
+      jewelryCatalogCarousel.refresh();
       document.querySelectorAll("[data-jewelry-metal]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.jewelryMetal === metal));
       });
