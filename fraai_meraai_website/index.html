@@ -68,7 +68,16 @@
     .products { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .product { background: white; border: 1px solid #f0e5e0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 30px rgba(99,59,69,.05); transition: .25s; }
     .product:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-    .product-art { min-height: 220px; display: grid; place-items: center; background: linear-gradient(145deg, #f5e4df, #f8eee7); font-size: 5rem; }.product-art img {
+    .product-art {
+    min-height: 220px;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(145deg, #f5e4df, #f8eee7);
+    font-size: 5rem;
+    overflow: hidden;
+}
+
+.product-art img {
     width: 100%;
     height: 260px;
     object-fit: contain;
