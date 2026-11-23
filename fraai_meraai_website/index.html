@@ -196,15 +196,15 @@
     .welcome-screen { position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 30px 20px; text-align: center; background: radial-gradient(circle at 50% 35%, #fff 0, #fffaf6 48%, #f2dfdc 100%); transition: opacity .9s ease, visibility .9s ease; }
     .welcome-screen.leaving { opacity: 0; visibility: hidden; pointer-events: none; }
     .intro-scene { width: min(330px, 78vw); height: 230px; position: relative; display: grid; place-items: end center; margin-bottom: 12px; }
-    .intro-butterfly { position: absolute; z-index: 3; top: -15px; left: 5%; font-size: 3.1rem; filter: drop-shadow(0 7px 8px rgba(99,59,69,.13)); animation: butterflyJourney 2.4s cubic-bezier(.42,0,.25,1) forwards; }
-    .intro-gift { width: 190px; height: 145px; position: relative; margin-bottom: 12px; animation: giftAppear .8s ease both; }
+    .intro-butterfly { position: absolute; z-index: 3; top: -15px; left: 5%; font-size: 3.1rem; filter: drop-shadow(0 7px 8px rgba(99,59,69,.13)); animation: butterflyJourney 1.6s cubic-bezier(.42,0,.25,1) forwards; }
+    .intro-gift { width: 190px; height: 145px; position: relative; margin-bottom: 12px; animation: giftAppear .5s ease both; }
     .gift-box { position: absolute; bottom: 0; left: 10px; width: 170px; height: 105px; border-radius: 5px 5px 12px 12px; background: linear-gradient(100deg,#d99d9b,#edc2bb 48%,#d28e91); box-shadow: 0 17px 25px rgba(99,59,69,.17); overflow: hidden; }
     .gift-box:before { content:""; position:absolute; left:72px; top:0; width:27px; height:100%; background:#fff0e9; opacity:.9; }
     .gift-box i { position:absolute; left:0; right:0; top:0; height:15px; background:rgba(255,255,255,.25); }
-    .gift-lid { position:absolute; z-index:2; top:27px; left:0; width:190px; height:30px; border-radius:5px; background:linear-gradient(100deg,#c98289,#e7b1ae 55%,#c98289); box-shadow:0 5px 8px rgba(99,59,69,.12); transform-origin: 12% 90%; animation: lidOpen .85s 2.75s ease forwards; }
+    .gift-lid { position:absolute; z-index:2; top:27px; left:0; width:190px; height:30px; border-radius:5px; background:linear-gradient(100deg,#c98289,#e7b1ae 55%,#c98289); box-shadow:0 5px 8px rgba(99,59,69,.12); transform-origin: 12% 90%; animation: lidOpen .6s 1.85s ease forwards; }
     .gift-lid span { position:absolute; left:81px; top:0; width:27px; height:100%; background:#fff0e9; }
-    .gift-bow { position:absolute; z-index:4; top:0; left:73px; font-size:2.5rem; animation: bowLift .8s 2.75s ease forwards; }
-    .welcome-message { max-width: 590px; opacity:0; transform:translateY(15px); animation: messageIn 1s 3.05s ease forwards; }
+    .gift-bow { position:absolute; z-index:4; top:0; left:73px; font-size:2.5rem; animation: bowLift .55s 1.85s ease forwards; }
+    .welcome-message { max-width: 590px; opacity:0; transform:translateY(15px); animation: messageIn .55s 2.05s ease forwards; }
     .welcome-message h1 { font-size:clamp(2.5rem,7vw,4.4rem); margin:12px 0; }
     .welcome-message p { color:var(--muted); line-height:1.7; max-width:440px; margin:0 auto; }
     .continue-button { margin-top:25px; min-width:165px; box-shadow:0 9px 22px rgba(99,59,69,.17); }
