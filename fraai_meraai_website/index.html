@@ -90,8 +90,9 @@
     width: 100%;
     height: 260px;
     object-fit: contain;
+    object-position: center;
     display: block;
-    padding: 10px;
+    padding: 0;
 }
     .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
@@ -112,8 +113,8 @@
     .product-dialog.product-dialog-fallback { display: block; position: fixed; z-index: 1001; inset: auto; top: 50%; left: 50%; margin: 0; transform: translate(-50%, -50%); }
     .dialog-close { position: absolute; z-index: 1; top: 12px; right: 12px; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: white; color: var(--wine); font-size: 1.6rem; cursor: pointer; box-shadow: 0 3px 12px rgba(99,59,69,.15); }
     .dialog-content { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 400px; }
-    .dialog-art { display: grid; place-items: center; min-height: 400px; padding: 28px; background: linear-gradient(145deg, #f5e4df, #f8eee7); }
-    .dialog-art img { display: block; width: 100%; height: 100%; max-height: 520px; object-fit: contain; }
+    .dialog-art { display: grid; place-items: center; min-height: 400px; padding: 12px; background: linear-gradient(145deg, #f5e4df, #f8eee7); }
+    .dialog-art img { display: block; width: 100%; height: 100%; max-height: 520px; object-fit: contain; object-position: center; }
     .dialog-emoji { font-size: clamp(7rem, 18vw, 12rem); }
     .dialog-info { align-self: center; padding: 52px 38px 38px; background: var(--cream); }
     .dialog-info h2 { margin: 10px 0 14px; color: var(--wine); font-size: clamp(2rem, 4vw, 2.8rem); }
@@ -127,7 +128,7 @@
     .jewelry-products .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .jewelry-products .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
     .jewelry-example-art { width: 100%; height: 240px; display: grid; place-items: center; overflow: hidden; color: var(--rose); font-size: 5rem; }
-    .jewelry-example-art img { width: 100%; height: 100%; padding: 8px; object-fit: contain; }
+    .jewelry-example-art img { width: 100%; height: 100%; padding: 0; object-fit: contain; object-position: center; }
     .jewelry-example-art span { display: grid; place-items: center; width: 100%; height: 100%; }
     .jewelry-note { max-width: 720px; margin: 30px auto 0; color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
     .jewelry-metal-options { display: flex; justify-content: center; gap: 12px; margin: 0 0 28px; }
@@ -246,7 +247,7 @@
       .jewelry-panel { padding: 20px; }
       .product-dialog { width: calc(100% - 24px); max-height: 88vh; max-height: 88dvh; border-radius: 14px; }
       .dialog-content { grid-template-columns: 1fr; }
-      .dialog-art { min-height: 180px; height: 32vh; max-height: 260px; padding: 16px; }
+      .dialog-art { min-height: 180px; height: 32vh; max-height: 260px; padding: 8px; }
       .dialog-info { padding: 24px 20px; }
       .custom-wrap, .contact-grid { grid-template-columns: 1fr; gap: 25px; }
       .section { padding: 65px 20px; }
@@ -258,7 +259,7 @@
       .catalogue-arrow { flex-basis: 30px; width: 30px; height: 30px; font-size: 1rem; }
       .catalogue-track > .product { flex-basis: min(88%, 270px); }
       .product-art { min-height: 150px; }
-      .product-art img { height: 150px; padding: 6px; }
+      .product-art img { height: 150px; padding: 0; }
       .jewelry-products .jewelry-example-art, .perfume-products .jewelry-example-art { height: 150px; min-height: 150px; }
       .product-info { padding: 13px; }
       .product-info h3 { margin-bottom: 6px; font-size: 1.05rem; }
