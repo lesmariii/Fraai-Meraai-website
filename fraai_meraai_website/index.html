@@ -122,6 +122,7 @@
     .product-contents li { margin-bottom: 8px; padding-left: 3px; }
     .dialog-info .price { display: block; margin: 20px 0; font-size: 1.4rem; }
     .jewelry-section { background: linear-gradient(180deg, #fffaf6, #f8ece7); }
+    .perfume-section { background: linear-gradient(180deg, #fffaf6, #f5e9e4); }
     .jewelry-products .product-art { min-height: 240px; background: linear-gradient(145deg, #f4e3df, #f9f1e7); }
     .jewelry-products .product:nth-child(2) .product-art { background: linear-gradient(145deg, #e9ece2, #f5eee5); }
     .jewelry-products .product:nth-child(3) .product-art { background: linear-gradient(145deg, #eee3e8, #f8eee7); }
@@ -257,7 +258,7 @@
       .catalogue-track > .product { flex-basis: min(88%, 270px); }
       .product-art { min-height: 150px; }
       .product-art img { height: 150px; padding: 6px; }
-      .jewelry-products .jewelry-example-art { height: 150px; min-height: 150px; }
+      .jewelry-products .jewelry-example-art, .perfume-products .jewelry-example-art { height: 150px; min-height: 150px; }
       .product-info { padding: 13px; }
       .product-info h3 { margin-bottom: 6px; font-size: 1.05rem; }
       .product-info p { min-height: 36px; margin-bottom: 9px; font-size: .76rem; line-height: 1.45; }
@@ -294,7 +295,7 @@
       <a class="brand" href="#tuis"><strong>Fraai Meraai</strong><span>Geskenk Boks</span></a>
       <button class="menu-toggle" aria-label="Maak kieslys oop" onclick="document.querySelector('nav').classList.toggle('open')">☰</button>
       <nav>
-        <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#fraai-juwele">Fraai Juwele</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
+        <a href="#tuis">Tuis</a><a href="#katalogus">Geskenkbokse</a><a href="#parfuum">Parfuum</a><a href="#fraai-juwele">Fraai Juwele</a><a href="#pasgemaak">Maak dit joune</a><a href="#kontak">Kontak</a>
       </nav>
     </div>
   </header>
@@ -336,6 +337,19 @@
       <button class="dialog-close" id="close-product-dialog" type="button" aria-label="Maak besonderhede toe">×</button>
       <div id="product-dialog-content"></div>
     </dialog>
+
+    <section class="section perfume-section" id="parfuum">
+      <div class="section-heading">
+        <div class="eyebrow">Jou nuwe gunsteling geur</div>
+        <h2>Parfuum</h2>
+        <p>Wanneer jy dit dra, dra jy nie net n parfuum nie - jy dra selfvertroue. n Geur wat saam met jou loop, wat mense laat omdraai en vra: "Wat ruik so mooi?".</p>
+      </div>
+      <div class="catalogue-carousel">
+        <button class="catalogue-arrow" id="perfume-catalog-prev" type="button" aria-label="Vorige parfuum" disabled>←</button>
+        <div class="products perfume-products catalogue-track" id="perfume-product-list" tabindex="0" role="region" aria-label="Parfuumkatalogus"></div>
+        <button class="catalogue-arrow" id="perfume-catalog-next" type="button" aria-label="Volgende parfuum" disabled>→</button>
+      </div>
+    </section>
 
     <section class="section jewelry-section" id="fraai-juwele">
       <div class="section-heading">
@@ -495,6 +509,17 @@
           <path d="M200 108 C179 100 177 121 199 126 C221 121 221 100 200 108Z" fill="#fff4e8"/>
           <circle cx="142" cy="166" r="5" fill="#fff4e8" opacity=".8"/>
           <circle cx="258" cy="199" r="4" fill="#fff4e8" opacity=".8"/>`;
+      } else if (kind === "perfume") {
+        const cap = sampleImageColors[(index + 3) % sampleImageColors.length];
+        artwork = `
+          <ellipse cx="200" cy="244" rx="76" ry="10" fill="#633b45" opacity=".12"/>
+          <rect x="176" y="58" width="48" height="32" rx="5" fill="${cap}"/>
+          <rect x="185" y="83" width="30" height="22" rx="4" fill="#d9b78c"/>
+          <path d="M155 111 Q155 101 168 101 H232 Q245 101 245 111 V218 Q245 233 230 233 H170 Q155 233 155 218Z" fill="${accent}" opacity=".82" stroke="#fff" stroke-width="5"/>
+          <path d="M170 112 V214 Q170 222 178 222 H222" fill="none" stroke="#fff" stroke-width="7" opacity=".42"/>
+          <rect x="169" y="145" width="62" height="42" rx="4" fill="#fffaf6" opacity=".88"/>
+          <path d="M200 151 C191 159 185 163 185 170 A15 15 0 0 0 215 170 C215 163 209 159 200 151Z" fill="${cap}" opacity=".88"/>
+          <circle cx="200" cy="173" r="4" fill="#fffaf6"/>`;
       } else {
         const metalColor = metal === "silver" ? "#9aa4ad" : "#c89a50";
         const isBracelet = index % 2 === 1;
@@ -599,7 +624,34 @@
       { name: "Voorbeeld Geskenkboks 20", price: "Voeg prys by", description: "Vervang met jou geskenkboks se beskrywing.", image: sampleCatalogImage("gift", 20) }
     ];
 
-    // Vervang die voorbeeldname, pryse, beskrywings en leë beeldpaaie met jou juwele.
+    // Verander elke parfuum se naam, prys, beskrywing en beeldpad hier.
+    const perfumeProducts = [
+      { name: "Clouds", price: "R145", description: "Vervang met jou parfuum se beskrywing.", image: "images/Clouds.webp" },
+      { name: "Cloud en Tubbees", price: "R35 kleintjies, R50 groot", description: "Vervang met jou parfuum se beskrywing.", image: "images/cloud-tubbees.webp" },
+      { name: "Cupcake Keychains", price: "R75 per een", description: "Vervang met jou parfuum se beskrywing.", image: "images/Cupcakes.webp" },
+      { name: "Heartbreak OnlyYou", price: "R50 een", description: "Vervang met jou parfuum se beskrywing.", image: "images/Heartbreak-OnlyYou.webp" },
+      { name: "La Bomba Blouset", price: "R100 een, R350 set", description: "Vervang met jou parfuum se beskrywing.", image: "images/La-Bomba-blouset.webp" },
+      { name: "La Bomba Pienkset", price: "R100 een, R350 set", description: "Vervang met jou parfuum se beskrywing.", image: "images/La-Bomba-pienkset.webp" },
+      { name: "La BonBon", price: "R95", description: "Vervang met jou parfuum se beskrywing.", image: "images/La-BonBon.webp" },
+      { name: "Miss Smoo", price: "R95 een", description: "Vervang met jou parfuum se beskrywing.", image: "images/Miss-Smoo.webp" },
+      { name: "Mystical Blackcat", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/Mystical-blackcat.webp" },
+      { name: "Mystical Euphoria", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/Mystical-Euphoria.webp" },
+      { name: "Mystical Mini", price: "R50 een, R200 set", description: "Vervang met jou parfuum se beskrywing.", image: "images/Mystical-mini.webp" },
+      { name: "Mystical Mon Paris", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/Mystical-Mon-Paris.webp" },
+      { name: "Mystical Scandal", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/Mystical-Scandal.webp" },
+      { name: "OnlyYou Cotton Candy", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/OnlyYou-cottoncandy.webp" },
+      { name: "OnlyYou Disco", price: "R65", description: "15ml.", image: "images/OnlyYou-disco.webp" },
+      { name: "OnlyYou Goue Glow", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/onlyYou-Goue-Glow.webp" },
+      { name: "OnlyYou Pink", price: "R50", description: "Vervang met jou parfuum se beskrywing.", image: "images/OnlyYou-pink.webp" },
+      { name: "Yara Mini", price: "R55 een", description: "Vervang met jou parfuum se beskrywing.", image: "images/Yara-mini.webp" },
+      { name: "Yara Sonneblom Sleutelhanger", price: "R95", description: "Vervang met jou parfuum se beskrywing.", image: "images/Yara-sonneblom-keychain.webp" },
+      { name: "Club Night Pienk", price: "R75", description: "Vervang met jou parfuum se beskrywing.", image: "images/club-night-pienk.webp" },
+      { name: "Club Night Rooi", price: "R75", description: "Vervang met jou parfuum se beskrywing.", image: "images/club-night-rooi.webp" },
+      { name: "Parfuum Voorbeeld 22", price: "Voeg prys by", description: "Vervang met jou parfuum se beskrywing.", image: "" },
+      { name: "Parfuum Voorbeeld 23", price: "Voeg prys by", description: "Vervang met jou parfuum se beskrywing.", image: "" }
+    ];
+
+    // Vervang die n, p, b en i met goud of s.
     const goldJewelryProducts = [
       { name: "Goudhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
       { name: "Goudarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
@@ -716,6 +768,28 @@
     }
 
     const giftCatalogCarousel = setupCatalogueCarousel("product-list", "gift-catalog-prev", "gift-catalog-next");
+    const perfumeProductList = document.getElementById("perfume-product-list");
+    const perfumeCatalogCarousel = setupCatalogueCarousel("perfume-product-list", "perfume-catalog-prev", "perfume-catalog-next");
+    perfumeProductList.innerHTML = perfumeProducts.map((product, index) => `
+      <article class="product">
+        <button class="product-preview" type="button" data-perfume-product-index="${index}" aria-haspopup="dialog" aria-label="Bekyk ${product.name} se besonderhede">
+          <div class="product-art jewelry-example-art">
+            <img src="${product.image || sampleCatalogImage("perfume", index)}" alt="${product.name}">
+          </div>
+          <div class="product-info">
+            <h3>${product.name}</h3>
+            <p>${product.description}</p>
+            <span class="product-hint">Sien meer besonderhede →</span>
+          </div>
+        </button>
+        <div class="product-actions">
+          <div class="price-row">
+            <span class="price">${product.price}</span>
+            <a class="small-order" href="${whatsappLink(`Hallo Fraai Meraai! Ek wil graag die ${product.name} bestel. Kan julle asseblief help?`)}" target="_blank" rel="noreferrer">Bestel nou ↗</a>
+          </div>
+        </div>
+      </article>`).join("");
+    perfumeCatalogCarousel.refresh();
     const jewelryProductList = document.getElementById("jewelry-product-list");
     const jewelryCatalogHeading = document.getElementById("jewelry-catalog-heading");
     const jewelryCatalogCarousel = setupCatalogueCarousel("jewelry-product-list", "jewelry-catalog-prev", "jewelry-catalog-next");
@@ -868,8 +942,14 @@
       const preview = event.target.closest("[data-product-index]");
       if (preview) {
         const product = products[Number(preview.dataset.productIndex)];
-        if (product) openProductDetails(product, product.image, false);
+        if (product) openProductDetails(product, product.image, "gift");
       }
+    });
+    perfumeProductList.addEventListener("click", (event) => {
+      const preview = event.target.closest("[data-perfume-product-index]");
+      if (!preview) return;
+      const product = perfumeProducts[Number(preview.dataset.perfumeProductIndex)];
+      if (product) openProductDetails(product, product.image, "perfume");
     });
     jewelryProductList.addEventListener("click", (event) => {
       const preview = event.target.closest("[data-jewelry-product-index]");
@@ -878,7 +958,7 @@
       const index = Number(preview.dataset.jewelryProductIndex);
       const jewelryProducts = metal === "silver" ? silverJewelryProducts : goldJewelryProducts;
       const product = jewelryProducts[index];
-      if (product) openProductDetails(product, product.image || sampleCatalogImage("jewelry", index, metal), true);
+      if (product) openProductDetails(product, product.image || sampleCatalogImage("jewelry", index, metal), "jewelry");
     });
     document.getElementById("close-product-dialog").addEventListener("click", closeProductDialog);
     productDialog.addEventListener("close", () => {
@@ -889,30 +969,31 @@
     });
     document.addEventListener("click", (event) => {
       if (!productDialog.classList.contains("product-dialog-fallback") || productDialog.contains(event.target)) return;
-      if (event.target.closest && event.target.closest("[data-product-index], [data-jewelry-product-index]")) return;
+      if (event.target.closest && event.target.closest("[data-product-index], [data-jewelry-product-index], [data-perfume-product-index]")) return;
       closeProductDialog();
     });
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && productDialog.classList.contains("product-dialog-fallback")) closeProductDialog();
     });
 
-    function openProductDetails(product, image, isJewelry) {
+    function openProductDetails(product, image, category) {
       if (!product) return;
       catalogueScrollPosition = window.scrollY;
       productDialogTrigger = document.activeElement;
+      const categoryName = category === "jewelry" ? "Fraai Juwele" : category === "perfume" ? "Parfuum" : "Met liefde saamgestel";
       productDialogContent.innerHTML = `
         <div class="dialog-content">
           <div class="dialog-art">
             ${image ? `<img src="${image}" alt="${product.name}">` : `<span class="dialog-emoji" aria-hidden="true">${product.emoji || "💝"}</span>`}
           </div>
           <div class="dialog-info">
-            <div class="eyebrow">${isJewelry ? "Fraai Juwele" : "Met liefde saamgestel"}</div>
+            <div class="eyebrow">${categoryName}</div>
             <h2 id="product-dialog-title">${product.name}</h2>
             ${product.contents
               ? `<p><strong>In die boks:</strong></p><ul class="product-contents">${product.contents.map((item) => `<li>${item}</li>`).join("")}</ul>`
-              : `<p>${isJewelry ? product.description : product.details || product.description}</p>`}
+              : `<p>${category === "jewelry" ? product.description : product.details || product.description}</p>`}
             <span class="price">${product.price}</span>
-            <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">${isJewelry ? "Bestel nou ↗" : "Vra oor hierdie boks ♡"}</button>
+            <button class="button" type="button" onclick="orderProduct('${product.name.replace(/'/g, "\\'")}')">${category === "gift" ? "Vra oor hierdie boks ♡" : "Bestel nou ↗"}</button>
           </div>
         </div>`;
       if (typeof productDialog.showModal === "function") {
