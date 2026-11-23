@@ -133,6 +133,9 @@
     .jewelry-example-art span { display: grid; place-items: center; width: 100%; height: 100%; }
     .jewelry-note { max-width: 720px; margin: 30px auto 0; color: var(--muted); text-align: center; font-size: .85rem; line-height: 1.7; }
     .jewelry-metal-options { display: flex; justify-content: center; gap: 12px; margin: 0 0 28px; }
+    .builder-metal-options { margin-bottom: 16px; }
+    .builder-metal-options .jewelry-metal-button { flex: 0 1 130px; min-width: 0; }
+    .builder-metal-label { margin: 0 0 10px; color: var(--wine); font-size: .9rem; font-weight: 600; text-align: center; }
     .jewelry-metal-button { min-width: 130px; border: 1px solid #d9b9b6; border-radius: 99px; padding: 12px 24px; background: white; color: var(--wine); font: 600 .9rem "DM Sans", sans-serif; cursor: pointer; transition: .2s; }
     .jewelry-metal-button[aria-pressed="true"], .jewelry-metal-button:hover { border-color: var(--wine); background: var(--wine); color: white; }
     .jewelry-metal-button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
@@ -156,7 +159,10 @@
     .jewelry-panel h3 { margin: 0 0 8px; color: var(--wine); font-size: 1.4rem; }
     .jewelry-panel-copy { margin: 0 0 18px; color: var(--muted); font-size: .86rem; line-height: 1.6; }
     .jewelry-preview { display: grid; place-items: center; min-height: 300px; padding: 10px; border-radius: 14px; background: radial-gradient(circle, #fff 0, #fbf3ed 72%); }
-    .jewelry-preview svg { display: block; width: 100%; max-width: 430px; height: auto; overflow: visible; }
+    .jewelry-preview svg { display: block; width: 100%; max-width: 430px; height: auto; overflow: visible; touch-action: none; user-select: none; }
+    .preview-charm { cursor: grab; }
+    .preview-charm:active { cursor: grabbing; }
+    .preview-charm:focus-visible { filter: drop-shadow(0 0 3px var(--rose)); }
     .jewelry-preview-label { margin: 12px 0 0; color: var(--wine); font-weight: 700; text-align: center; }
     .jewelry-preview-status { min-height: 42px; margin: 8px 0 0; color: var(--muted); font-size: .82rem; line-height: 1.5; text-align: center; }
     .charm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 11px; }
@@ -240,13 +246,17 @@
       .product-actions { padding: 0 16px 16px; }
       .small-order { padding: 8px 10px; white-space: nowrap; }
       .jewelry-example-art { height: 180px; min-height: 180px; }
-      .jewelry-builder { grid-template-columns: 1fr; }
+      .jewelry-builder { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
       .jewelry-products { max-width: none; }
       .bear-launch { max-width: 470px; padding: 19px; }
       .builder-welcome { gap: 10px; }
       .builder-bear { font-size: 3.5rem; }
       .builder-speech { padding: 14px 16px; font-size: 1.05rem; }
-      .jewelry-panel { padding: 20px; }
+      .jewelry-panel { min-width: 0; padding: 14px; }
+      .jewelry-preview { min-height: 220px; padding: 6px; }
+      .charm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .charm-choice { min-height: 98px; }
+      .charm-art { width: 40px; height: 40px; }
       .product-dialog { width: calc(100% - 24px); max-height: 88vh; max-height: 88dvh; border-radius: 14px; }
       .dialog-content { grid-template-columns: 1fr; min-height: 0; }
       .dialog-art { min-height: 180px; height: auto; max-height: none; padding: 8px; }
@@ -258,6 +268,18 @@
     @media (max-width: 480px) {
       .section#katalogus, .section.jewelry-section { padding: 48px 16px; }
       .section#katalogus .section-heading, .jewelry-section .section-heading { margin-bottom: 26px; }
+      .jewelry-builder { gap: 8px; }
+      .jewelry-panel { padding: 10px; }
+      .jewelry-panel h3 { font-size: 1.05rem; }
+      .jewelry-panel-copy { margin-bottom: 10px; font-size: .72rem; line-height: 1.4; }
+      .jewelry-preview { min-height: 165px; padding: 4px; }
+      .jewelry-preview-label { font-size: .78rem; }
+      .jewelry-preview-status { min-height: 0; font-size: .68rem; }
+      .charm-grid { gap: 6px; }
+      .charm-choice { min-height: 84px; gap: 4px; padding: 6px 3px; font-size: .68rem; }
+      .charm-art { width: 36px; height: 36px; }
+      .charm-choice small { font-size: .6rem; }
+      .clear-charms { width: 100%; padding: 8px 4px; font-size: .68rem; }
       .catalogue-carousel { gap: 5px; }
       .catalogue-arrow { flex-basis: 30px; width: 30px; height: 30px; font-size: 1rem; }
       .catalogue-track > .product { flex-basis: min(88%, 270px); }
@@ -386,12 +408,17 @@
       <div class="section-heading">
         <div class="eyebrow">Jou ontwerp, jou styl</div>
         <h2>Die Juwele-Ateljee</h2>
-        <p>Kies 'n halssnoer of armband, en druk op die bedels om hulle op jou ontwerp te sien. Druk weer om 'n bedel te verwyder.</p>
+        <p>Kies 'n halssnoer of armband en druk op bedels om hulle by te voeg. Sleep 'n bedel om sy plek te verander; laat dit op 'n ander bedel los om hulle om te ruil. Druk weer op 'n bedel in die lys om dit te verwyder.</p>
       </div>
       <button class="button secondary builder-return" id="close-jewelry-builder" type="button">Terug na die juwele-katalogus</button>
       <div class="builder-welcome">
         <span class="builder-bear" aria-hidden="true">🧸</span>
         <p class="builder-speech">Kom ons bou ons eie juwele!</p>
+      </div>
+      <p class="builder-metal-label">Kies jou gunstelling</p>
+      <div class="jewelry-metal-options builder-metal-options" role="group" aria-label="Kies jou gunstelling">
+        <button class="jewelry-metal-button" type="button" data-builder-metal="gold" aria-pressed="true">Goud</button>
+        <button class="jewelry-metal-button" type="button" data-builder-metal="silver" aria-pressed="false">Silwer</button>
       </div>
       <div class="jewelry-type-picker" role="group" aria-label="Kies jou juweel">
         <button class="jewelry-type-button" type="button" data-jewelry-type="necklace" aria-pressed="true">Halssnoer</button>
@@ -400,12 +427,12 @@
       <div class="jewelry-builder">
         <div class="jewelry-panel">
           <h3>Jou ontwerp</h3>
-          <p class="jewelry-panel-copy">Jou bedels verskyn hier soos jy hulle kies.</p>
+          <p class="jewelry-panel-copy">Sleep 'n gekose bedel op jou ontwerp om sy plek te verander.</p>
           <div class="jewelry-preview">
-            <svg id="jewelry-preview" viewBox="0 0 400 280" role="img" aria-label="Leë halssnoer-voorskou">
-              <path id="jewelry-chain-shadow" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#f0d7a2" stroke-width="10" stroke-linecap="round"></path>
-              <path id="jewelry-chain" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#bd914c" stroke-width="3" stroke-linecap="round"></path>
-              <g id="jewelry-preview-charms" aria-hidden="true"></g>
+            <svg id="jewelry-preview" viewBox="0 0 400 280" role="group" aria-label="Leë halssnoer-voorskou">
+              <path id="jewelry-chain-shadow" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#f0d7a2" stroke-width="10" stroke-linecap="round" aria-hidden="true"></path>
+              <path id="jewelry-chain" d="M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30" fill="none" stroke="#bd914c" stroke-width="3" stroke-linecap="round" aria-hidden="true"></path>
+              <g id="jewelry-preview-charms"></g>
             </svg>
           </div>
           <p class="jewelry-preview-label" id="jewelry-preview-label">Jou halssnoer</p>
@@ -721,14 +748,14 @@
       { name: "Silwerjuweel-voorbeeld 10", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "silver") }
     ];
 
-    // Vervang later die voorbeeld-emoji's met jou eie bedelname en beeldpaaie.
+    // Vervang later die bedelname en beeldpaaie met jou eie.
     const availableCharms = [
-      { id: "Wit", name: "Wit", image: "Wit-charm.webp.jpeg" },
-      { id: "Blou", name: "Blou", image: "Blou-charm.webp.jpeg" },
-      { id: "Kruis", name: "Kruis", emoji: "十", image: "Kruis-charm.webp.jpeg" },
-      { id: "Swart", name: "Swart", image: "Swart-charm.webp.jpeg" },
-      { id: "Pienk", name: "Pienk", image: "Pienk-charm.webp.jpeg" },
-      { id: "Groen", name: "Groen", image: "Groen-charm.webp.jpeg" }
+      { id: "Wit", name: "Wit", image: "images/charm-wit.png" },
+      { id: "Blou", name: "Blou", image: "images/charm-blou.png" },
+      { id: "Kruis", name: "Kruis", image: "images/charm-kruis.png" },
+      { id: "Swart", name: "Swart", image: "images/charm-swart.png" },
+      { id: "Pienk", name: "Pienk", image: "images/charm-pienk.png" },
+      { id: "Groen", name: "Groen", image: "images/charm-groen.png" }
     ];
 
     function whatsappLink(message, phone = BUSINESS.whatsapp[0]) {
@@ -876,48 +903,97 @@
       </button>`).join("");
 
     let jewelryType = "necklace";
+    let jewelryMetal = "gold";
     const selectedCharmIds = new Set();
+    const charmPositions = new Map();
     const necklacePath = "M 55 30 C 58 130, 110 225, 200 244 C 290 225, 342 130, 345 30";
     const braceletPath = "M 200 36 A 145 104 0 1 1 199.9 36";
     const jewelryPreview = document.getElementById("jewelry-preview");
     const jewelryPreviewCharms = document.getElementById("jewelry-preview-charms");
+    const jewelryChain = document.getElementById("jewelry-chain");
+    const jewelryChainShadow = document.getElementById("jewelry-chain-shadow");
+    let jewelryChainLength = jewelryChain.getTotalLength();
+    let draggingCharmId = null;
+    let dragPosition = null;
+    let dragMoved = false;
+
+    function charmPositionDistance(first, second) {
+      const distance = Math.abs(first - second);
+      return jewelryType === "bracelet" ? Math.min(distance, 1 - distance) : distance;
+    }
+
+    function findAvailableCharmPosition() {
+      const occupied = Array.from(selectedCharmIds, (id) => charmPositions.get(id)).filter((position) => position !== undefined);
+      if (!occupied.length) return jewelryType === "bracelet" ? 0.25 : 0.5;
+
+      const candidates = Array.from({ length: 61 }, (_, index) => 0.12 + (0.76 * index / 60));
+      let bestPosition = candidates[0];
+      let bestDistance = -1;
+      candidates.forEach((candidate) => {
+        const nearestCharm = Math.min(...occupied.map((position) => charmPositionDistance(candidate, position)));
+        if (nearestCharm > bestDistance) {
+          bestPosition = candidate;
+          bestDistance = nearestCharm;
+        }
+      });
+      return bestPosition;
+    }
+
+    function getPointOnJewelryChain(position) {
+      return jewelryChain.getPointAtLength(position * jewelryChainLength);
+    }
+
+    function findNearestChainPosition(point) {
+      let closestPosition = 0;
+      let closestDistance = Infinity;
+      for (let index = 0; index <= 160; index += 1) {
+        const position = index / 160;
+        const chainPoint = getPointOnJewelryChain(position);
+        const distance = Math.hypot(point.x - chainPoint.x, point.y - chainPoint.y);
+        if (distance < closestDistance) {
+          closestPosition = position;
+          closestDistance = distance;
+        }
+      }
+      return closestPosition;
+    }
 
     function updateJewelryPreview() {
       const isBracelet = jewelryType === "bracelet";
       const jewelryLabel = isBracelet ? "armband" : "halssnoer";
+      const metalLabel = jewelryMetal === "silver" ? "silwer" : "goue";
       const path = isBracelet ? braceletPath : necklacePath;
-      document.getElementById("jewelry-chain").setAttribute("d", path);
-      document.getElementById("jewelry-chain-shadow").setAttribute("d", path);
-      document.getElementById("jewelry-preview-label").textContent = `Jou ${jewelryLabel}`;
+      jewelryChain.setAttribute("d", path);
+      jewelryChainLength = jewelryChain.getTotalLength();
+      jewelryChain.setAttribute("stroke", jewelryMetal === "silver" ? "#9ba4ac" : "#bd914c");
+      jewelryChainShadow.setAttribute("d", path);
+      jewelryChainShadow.setAttribute("stroke", jewelryMetal === "silver" ? "#dfe3e6" : "#f0d7a2");
+      document.getElementById("jewelry-preview-label").textContent = `Jou ${metalLabel} ${jewelryLabel}`;
       document.querySelectorAll("[data-jewelry-type]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.jewelryType === jewelryType));
       });
+      document.querySelectorAll("[data-builder-metal]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.builderMetal === jewelryMetal));
+      });
 
       const selectedCharms = availableCharms.filter((charm) => selectedCharmIds.has(charm.id));
-      jewelryPreviewCharms.innerHTML = selectedCharms.map((charm, index) => {
-        let x;
-        let y;
-        if (isBracelet) {
-          const angle = -Math.PI / 2 + (2 * Math.PI * index / selectedCharms.length);
-          x = 200 + 145 * Math.cos(angle);
-          y = 140 + 104 * Math.sin(angle);
-        } else {
-          const t = selectedCharms.length === 1 ? 0.5 : 0.15 + (0.7 * index / (selectedCharms.length - 1));
-          x = 55 + 290 * t;
-          y = 30 + 214 * Math.sin(Math.PI * t);
-        }
+      jewelryPreviewCharms.innerHTML = selectedCharms.map((charm) => {
+        const position = charm.id === draggingCharmId && dragPosition !== null
+          ? dragPosition
+          : charmPositions.get(charm.id);
+        const point = getPointOnJewelryChain(position);
         const charmArt = charm.image
-          ? `<image href="${charm.image}" x="-16" y="-16" width="32" height="32" preserveAspectRatio="xMidYMid meet"></image>`
-          : `<text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-size="21">${charm.emoji}</text>`;
-        return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><circle r="18" fill="#fffaf6" stroke="#bd914c" stroke-width="2"></circle>${charmArt}</g>`;
+          ? `<circle r="20" fill="transparent" pointer-events="all"></circle><image href="${charm.image}" x="-18" y="-18" width="36" height="36" preserveAspectRatio="xMidYMid meet"></image>`
+          : `<circle r="18" fill="#fffaf6" stroke="#bd914c" stroke-width="2"></circle><text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-size="21">${charm.emoji}</text>`;
+        return `<g class="preview-charm" data-preview-charm-id="${charm.id}" transform="translate(${point.x.toFixed(1)} ${point.y.toFixed(1)})" role="button" tabindex="0" aria-label="Sleep om ${charm.name} te skuif">${charmArt}</g>`;
       }).join("");
 
       const selectedNames = selectedCharms.map((charm) => charm.name);
       jewelryPreview.setAttribute("aria-label", selectedNames.length
-        ? `Voorskou van jou ${jewelryLabel} met ${selectedNames.join(", ")}`
-        : `Leë ${jewelryLabel}-voorskou`);
+        ? `Voorskou van jou ${metalLabel} ${jewelryLabel} met ${selectedNames.join(", ")}`
+        : `Leë ${metalLabel} ${jewelryLabel}-voorskou`);
       document.getElementById("jewelry-preview-status").textContent = selectedNames.length
-        ? `${selectedNames.length} ${selectedNames.length === 1 ? "bedel" : "bedels"} gekies: ${selectedNames.join(", ")}. Druk weer op 'n bedel om dit te verwyder.`
+        ? `${selectedNames.length} ${selectedNames.length === 1 ? "bedel" : "bedels"} gekies: ${selectedNames.join(", ")}. Sleep 'n bedel om dit te skuif of ruil dit om deur dit op 'n ander bedel te los.`
         : "Kies bedels om jou ontwerp te begin.";
 
       document.querySelectorAll("[data-charm-id]").forEach((button) => {
@@ -928,9 +1004,81 @@
       });
     }
 
+    jewelryPreview.addEventListener("pointerdown", (event) => {
+      const charm = event.target.closest("[data-preview-charm-id]");
+      if (!charm || !selectedCharmIds.has(charm.dataset.previewCharmId)) return;
+      draggingCharmId = charm.dataset.previewCharmId;
+      dragPosition = charmPositions.get(draggingCharmId);
+      dragMoved = false;
+      jewelryPreview.setPointerCapture(event.pointerId);
+      event.preventDefault();
+    });
+    jewelryPreview.addEventListener("pointermove", (event) => {
+      if (draggingCharmId === null) return;
+      const screenMatrix = jewelryPreview.getScreenCTM();
+      if (!screenMatrix) return;
+      const svgPoint = jewelryPreview.createSVGPoint();
+      svgPoint.x = event.clientX;
+      svgPoint.y = event.clientY;
+      const point = svgPoint.matrixTransform(screenMatrix.inverse());
+      dragMoved = true;
+      dragPosition = findNearestChainPosition(point);
+      updateJewelryPreview();
+    });
+    function finishCharmDrag(event, cancelled) {
+      if (draggingCharmId === null) return;
+      if (!cancelled && dragPosition !== null) {
+        const charmId = draggingCharmId;
+        const originalPosition = charmPositions.get(charmId);
+        const droppedPoint = getPointOnJewelryChain(dragPosition);
+        const targetCharm = dragMoved && availableCharms.find((charm) => {
+          if (charm.id === charmId || !selectedCharmIds.has(charm.id)) return false;
+          const targetPoint = getPointOnJewelryChain(charmPositions.get(charm.id));
+          return Math.hypot(droppedPoint.x - targetPoint.x, droppedPoint.y - targetPoint.y) < 36;
+        });
+        if (targetCharm) {
+          charmPositions.set(charmId, charmPositions.get(targetCharm.id));
+          charmPositions.set(targetCharm.id, originalPosition);
+        } else {
+          charmPositions.set(charmId, dragPosition);
+        }
+      }
+      draggingCharmId = null;
+      dragPosition = null;
+      dragMoved = false;
+      if (jewelryPreview.hasPointerCapture(event.pointerId)) jewelryPreview.releasePointerCapture(event.pointerId);
+      updateJewelryPreview();
+    }
+    jewelryPreview.addEventListener("pointerup", (event) => finishCharmDrag(event, false));
+    jewelryPreview.addEventListener("pointercancel", (event) => finishCharmDrag(event, true));
+    jewelryPreview.addEventListener("keydown", (event) => {
+      const charm = event.target.closest("[data-preview-charm-id]");
+      if (!charm) return;
+      const direction = event.key === "ArrowRight" || event.key === "ArrowUp"
+        ? 1
+        : event.key === "ArrowLeft" || event.key === "ArrowDown" ? -1 : 0;
+      if (!direction) return;
+      event.preventDefault();
+      const charmId = charm.dataset.previewCharmId;
+      let position = charmPositions.get(charmId) + direction * 0.025;
+      position = jewelryType === "bracelet"
+        ? (position + 1) % 1
+        : Math.max(0.02, Math.min(0.98, position));
+      charmPositions.set(charmId, position);
+      updateJewelryPreview();
+      const updatedCharm = Array.from(jewelryPreviewCharms.querySelectorAll("[data-preview-charm-id]"))
+        .find((item) => item.dataset.previewCharmId === charmId);
+      if (updatedCharm) updatedCharm.focus();
+    });
     document.querySelectorAll("[data-jewelry-type]").forEach((button) => {
       button.addEventListener("click", () => {
         jewelryType = button.dataset.jewelryType;
+        updateJewelryPreview();
+      });
+    });
+    document.querySelectorAll("[data-builder-metal]").forEach((button) => {
+      button.addEventListener("click", () => {
+        jewelryMetal = button.dataset.builderMetal;
         updateJewelryPreview();
       });
     });
@@ -938,12 +1086,18 @@
       const button = event.target.closest("[data-charm-id]");
       if (!button) return;
       const charmId = button.dataset.charmId;
-      if (selectedCharmIds.has(charmId)) selectedCharmIds.delete(charmId);
-      else selectedCharmIds.add(charmId);
+      if (selectedCharmIds.has(charmId)) {
+        selectedCharmIds.delete(charmId);
+        charmPositions.delete(charmId);
+      } else {
+        charmPositions.set(charmId, findAvailableCharmPosition());
+        selectedCharmIds.add(charmId);
+      }
       updateJewelryPreview();
     });
     document.getElementById("clear-charms").addEventListener("click", () => {
       selectedCharmIds.clear();
+      charmPositions.clear();
       updateJewelryPreview();
     });
     updateJewelryPreview();
