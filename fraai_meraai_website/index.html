@@ -393,8 +393,7 @@
         <button class="jewelry-metal-button" type="button" data-jewelry-metal="silver" aria-pressed="false">Silwer</button>
       </div>
       <div class="jewelry-category-options" role="group" aria-label="Kies juweletipe">
-        <button class="jewelry-category-button" type="button" data-jewelry-category="all" aria-pressed="true">Alles</button>
-        <button class="jewelry-category-button" type="button" data-jewelry-category="earrings" aria-pressed="false">Oorbelle</button>
+        <button class="jewelry-category-button" type="button" data-jewelry-category="earrings" aria-pressed="true">Oorbelle</button>
         <button class="jewelry-category-button" type="button" data-jewelry-category="necklace" aria-pressed="false">Halssnoere</button>
         <button class="jewelry-category-button" type="button" data-jewelry-category="bracelet" aria-pressed="false">Armbande</button>
         <button class="jewelry-category-button" type="button" data-jewelry-category="ring" aria-pressed="false">Ringe</button>
@@ -767,13 +766,13 @@
       { name: "Gold Solitaire Ring",
         category: "ring",
         price: "R180",
-        description: "Stainless steel, Gold solitaire ring 17-20.",
+        description: "Stainless steel, Gold solitaire ring, SIZES 17-20.",
         image: "images/solitaire-ring.webp.jpeg",
       },
       { name: "Square Solitaire Ring",
         category: "ring",
         price: "R180",
-        description: "Stainless steel, gold square ring 16-20.",
+        description: "Stainless steel, gold square ring, SIZES 16-20.",
         image: "images/Square-solitaire-ring.webp.jpeg",
       },
       { name: "Gold Blue CZ Ring",
@@ -785,19 +784,19 @@
       { name: "Gold Band Ring",
         category: "ring",
         price: "R120",
-        description: "Stainless steel, 2mm gold band 17-21.",
+        description: "Stainless steel, 2mm gold band, SIZES 17-21.",
         image: "images/Gold-band.webp.jpg",
       },
       { name: "All Round Ring",
         category: "ring",
         price: "R160",
-        description: "Stainless Steel All round CZ ring 16-20.",
+        description: "Stainless Steel All round CZ ring, SIZES 16-20.",
         image: "images/All-round-ring.webp.jpeg",
       },
       { name: "Gold Band Ring",
         category: "ring",
         price: "R120",
-        description: "Stainless steel.",
+        description: "Stainless steel, SIZES 17-22.",
         contents: [
           "6mm Gold Band 17-22",
           "4mm Gold Band 17-22",
@@ -1052,13 +1051,13 @@
     const jewelryProductList = document.getElementById("jewelry-product-list");
     const jewelryCatalogHeading = document.getElementById("jewelry-catalog-heading");
     const jewelryCatalogCarousel = setupCatalogueCarousel("jewelry-product-list", "jewelry-catalog-prev", "jewelry-catalog-next");
-    let jewelryCatalogCategory = "all";
+    let jewelryCatalogCategory = "earrings";
     function renderJewelryCatalog(metal) {
       const isSilver = metal === "silver";
       const products = isSilver ? silverJewelryProducts : goldJewelryProducts;
       const catalogItems = products
         .map((product, index) => ({ product, index }))
-        .filter(({ product }) => jewelryCatalogCategory === "all" || product.category === jewelryCatalogCategory);
+        .filter(({ product }) => product.category === jewelryCatalogCategory);
       jewelryCatalogHeading.textContent = isSilver ? "Silwerkatalogus" : "Goudkatalogus";
       const categoryButton = document.querySelector(`[data-jewelry-category="${jewelryCatalogCategory}"]`);
       jewelryProductList.setAttribute("aria-label", `${jewelryCatalogHeading.textContent}: ${categoryButton.textContent}`);
