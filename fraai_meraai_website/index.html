@@ -139,6 +139,10 @@
     .jewelry-metal-button { min-width: 130px; border: 1px solid #d9b9b6; border-radius: 99px; padding: 12px 24px; background: white; color: var(--wine); font: 600 .9rem "DM Sans", sans-serif; cursor: pointer; transition: .2s; }
     .jewelry-metal-button[aria-pressed="true"], .jewelry-metal-button:hover { border-color: var(--wine); background: var(--wine); color: white; }
     .jewelry-metal-button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
+    .jewelry-category-options { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px; margin: 0 0 26px; }
+    .jewelry-category-button { border: 1px solid #d9b9b6; border-radius: 99px; padding: 10px 18px; background: white; color: var(--wine); font: 600 .85rem "DM Sans", sans-serif; cursor: pointer; transition: .2s; }
+    .jewelry-category-button[aria-pressed="true"], .jewelry-category-button:hover { border-color: var(--wine); background: var(--wine); color: white; }
+    .jewelry-category-button:focus-visible { outline: 3px solid var(--rose); outline-offset: 3px; }
     .jewelry-catalog-heading { margin: 0 0 22px; color: var(--wine); font: 600 1.65rem "Playfair Display", serif; text-align: center; }
     .builder-return { display: flex; width: fit-content; margin: 0 auto 26px; }
     .bear-launch { width: 100%; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 20px; max-width: 620px; margin: 42px auto 0; padding: 22px 28px; border: 1px solid #e8d2ca; border-radius: 20px; background: rgba(255,255,255,.82); box-shadow: var(--shadow); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: .2s; }
@@ -387,6 +391,13 @@
       <div class="jewelry-metal-options" role="group" aria-label="Kies jou juwelekatalogus">
         <button class="jewelry-metal-button" type="button" data-jewelry-metal="gold" aria-pressed="true">Goud</button>
         <button class="jewelry-metal-button" type="button" data-jewelry-metal="silver" aria-pressed="false">Silwer</button>
+      </div>
+      <div class="jewelry-category-options" role="group" aria-label="Kies juweletipe">
+        <button class="jewelry-category-button" type="button" data-jewelry-category="all" aria-pressed="true">Alles</button>
+        <button class="jewelry-category-button" type="button" data-jewelry-category="earrings" aria-pressed="false">Oorbelle</button>
+        <button class="jewelry-category-button" type="button" data-jewelry-category="necklace" aria-pressed="false">Halssnoere</button>
+        <button class="jewelry-category-button" type="button" data-jewelry-category="bracelet" aria-pressed="false">Armbande</button>
+        <button class="jewelry-category-button" type="button" data-jewelry-category="ring" aria-pressed="false">Ringe</button>
       </div>
       <h3 class="jewelry-catalog-heading" id="jewelry-catalog-heading">Goudkatalogus</h3>
       <div class="catalogue-carousel">
@@ -712,46 +723,79 @@
 
     // Vervang die n, p, b en i met goud of s.
     const goldJewelryProducts = [
-      { name: "Goudhalssnoer-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
-      { name: "Goudarmband-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
-      { name: "Goudbedel-voorbeeld", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" },
-      { name: "Goudjuweel-voorbeeld 01", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "gold") },
-      { name: "Goudjuweel-voorbeeld 02", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "gold") },
-      { name: "Goudjuweel-voorbeeld 03", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "gold") },
-      { name: "Goudjuweel-voorbeeld 04", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "gold") },
-      { name: "Goudjuweel-voorbeeld 05", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "gold") },
-      { name: "Goudjuweel-voorbeeld 06", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "gold") },
-      { name: "Goudjuweel-voorbeeld 07", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "gold") },
-      { name: "Goudjuweel-voorbeeld 08", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "gold") },
-      { name: "Goudjuweel-voorbeeld 09", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "gold") },
-      { name: "Goudjuweel-voorbeeld 10", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "gold") }
+      { name: "Goudhalssnoer-voorbeeld", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "📿" },
+      { name: "Goudarmband-voorbeeld", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "✨" },
+      { name: "Goudbedel-voorbeeld", category: "other", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: "", emoji: "💎" },
+      { name: "Goudjuweel-voorbeeld 01", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "gold") },
+      { name: "Goudjuweel-voorbeeld 02", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "gold") },
+      { name: "Goudjuweel-voorbeeld 03", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "gold") },
+      { name: "Goudjuweel-voorbeeld 04", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "gold") },
+      { name: "Goudjuweel-voorbeeld 05", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "gold") },
+      { name: "Goudjuweel-voorbeeld 06", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "gold") },
+      { name: "Goudjuweel-voorbeeld 07", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "gold") },
+      { name: "Goudjuweel-voorbeeld 08", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "gold") },
+      { name: "Goudjuweel-voorbeeld 09", category: "ring", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "gold") },
+      { name: "Goudjuweel-voorbeeld 10", category: "ring", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "gold") }
     ];
     const silverJewelryProducts = [
       { name: "Emerald Princess Necklace",
+        category: "necklace",
         price: "R200",
         description: "Green Emerald CZ Halo stainless steel",
-        image: "images/emeraldprincess-fraai-meraai.webp",
+        image: "images/emerald-princess.WEBP.jpg",
       },
       { name: "Sapphire Princess Necklace",
+      category: "necklace",
       price: "R200", 
       description: "Blue Sapphire CZ Halo stainless steel", 
       image: "images/sapphireprincess-fraai-meraai.webp",
     },
       { name: "PearlDrop Necklace",
+      category: "necklace",
       price: "R280", 
       description: "White pearl 70cm stainless steel", 
       image: "images/pearldrop-fraai-meraai.webp",
     },
-      { name: "Silwerjuweel-voorbeeld 01", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "silver") },
-      { name: "Silwerjuweel-voorbeeld 02", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "silver") },
-      { name: "Silwerjuweel-voorbeeld 03", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "silver") },
-      { name: "Silwerjuweel-voorbeeld 04", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "silver") },
-      { name: "Silwerjuweel-voorbeeld 05", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "silver") },
-      { name: "Silwerjuweel-voorbeeld 06", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "silver") },
-      { name: "Silwerjuweel-voorbeeld 07", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "silver") },
-      { name: "Silwerjuweel-voorbeeld 08", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "silver") },
-      { name: "Silwerjuweel-voorbeeld 09", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "silver") },
-      { name: "Silwerjuweel-voorbeeld 10", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "silver") }
+      { name: "Round Snakechain with Beads Necklace",
+       category: "necklace",
+        price: "R150", 
+        description: "Stainless Steel.", 
+        image: "images/round-snakechain-beads.webp.jpg",
+       },
+       { name : "Pearl Necklace",
+        category: "necklace",
+        price: "R250",
+        description: "Stainless steel, 45-50cm.",
+        image: "images/Silver-pearl.webp.jpg",
+       },
+       { name: "Simple Cross CZ Necklace",
+        category: "necklace",
+        price: "R180",
+        description: "Stainless steel.",
+        image: "images/simple-cross.webp.jpg",
+       },
+       { name: "Snakechain with Cross Necklace",
+        category: "necklace",
+        price: "R200",
+        description: "Stainless steel.",
+        image: "images/snakechain-with-cross.webp.jpg",
+       },
+       { name: "Gothic Cross Necklace",
+        category: "necklace",
+        price: "R180",
+        description: "Stainless steel.",
+        image: "images/gothic-cross.webp.jpg",
+       },
+      { name: "Silwerjuweel-voorbeeld 01", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 1, "silver") },
+      { name: "Silwerjuweel-voorbeeld 02", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 2, "silver") },
+      { name: "Silwerjuweel-voorbeeld 03", category: "earrings", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 3, "silver") },
+      { name: "Silwerjuweel-voorbeeld 04", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 4, "silver") },
+      { name: "Silwerjuweel-voorbeeld 05", category: "necklace", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 5, "silver") },
+      { name: "Silwerjuweel-voorbeeld 06", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 6, "silver") },
+      { name: "Silwerjuweel-voorbeeld 07", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 7, "silver") },
+      { name: "Silwerjuweel-voorbeeld 08", category: "bracelet", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 8, "silver") },
+      { name: "Silwerjuweel-voorbeeld 09", category: "ring", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 9, "silver") },
+      { name: "Silwerjuweel-voorbeeld 10", category: "ring", price: "Voeg prys by", description: "Vervang met jou juweel se beskrywing.", image: sampleCatalogImage("jewelry", 10, "silver") }
     ];
 
     // Vervang later die bedelname en beeldpaaie met jou eie.
@@ -852,12 +896,17 @@
     const jewelryProductList = document.getElementById("jewelry-product-list");
     const jewelryCatalogHeading = document.getElementById("jewelry-catalog-heading");
     const jewelryCatalogCarousel = setupCatalogueCarousel("jewelry-product-list", "jewelry-catalog-prev", "jewelry-catalog-next");
+    let jewelryCatalogCategory = "all";
     function renderJewelryCatalog(metal) {
       const isSilver = metal === "silver";
       const products = isSilver ? silverJewelryProducts : goldJewelryProducts;
+      const catalogItems = products
+        .map((product, index) => ({ product, index }))
+        .filter(({ product }) => jewelryCatalogCategory === "all" || product.category === jewelryCatalogCategory);
       jewelryCatalogHeading.textContent = isSilver ? "Silwerkatalogus" : "Goudkatalogus";
-      jewelryProductList.setAttribute("aria-label", jewelryCatalogHeading.textContent);
-      jewelryProductList.innerHTML = products.map((product, index) => `
+      const categoryButton = document.querySelector(`[data-jewelry-category="${jewelryCatalogCategory}"]`);
+      jewelryProductList.setAttribute("aria-label", `${jewelryCatalogHeading.textContent}: ${categoryButton.textContent}`);
+      jewelryProductList.innerHTML = catalogItems.map(({ product, index }) => `
         <article class="product">
           <button class="product-preview" type="button" data-jewelry-product-index="${index}" aria-haspopup="dialog" aria-label="Bekyk ${product.name} se besonderhede">
             <div class="product-art jewelry-example-art">
@@ -881,9 +930,19 @@
       document.querySelectorAll("[data-jewelry-metal]").forEach((button) => {
         button.setAttribute("aria-pressed", String(button.dataset.jewelryMetal === metal));
       });
+      document.querySelectorAll("[data-jewelry-category]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.jewelryCategory === jewelryCatalogCategory));
+      });
     }
     document.querySelectorAll("[data-jewelry-metal]").forEach((button) => {
       button.addEventListener("click", () => renderJewelryCatalog(button.dataset.jewelryMetal));
+    });
+    document.querySelectorAll("[data-jewelry-category]").forEach((button) => {
+      button.addEventListener("click", () => {
+        jewelryCatalogCategory = button.dataset.jewelryCategory;
+        const metal = document.querySelector('[data-jewelry-metal][aria-pressed="true"]').dataset.jewelryMetal;
+        renderJewelryCatalog(metal);
+      });
     });
     renderJewelryCatalog("gold");
 
